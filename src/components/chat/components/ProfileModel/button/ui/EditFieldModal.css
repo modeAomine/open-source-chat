@@ -1,4 +1,4 @@
-.modal-overlay {
+.edit-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,43 +11,43 @@
   z-index: 1000;
 }
 
-.modal-content {
+.edit-modal-content {
   background-color: #2d3748;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 0.5rem;
   width: 80%;
-  max-width: 30rem;
+  max-width: 25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.modal-title {
-  margin-bottom: 1.5rem;
+.edit-modal-title {
+  margin-bottom: 1rem;
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
-.input-field {
+.edit-input-field {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #4a5568;
   border-radius: 0.25rem;
   background-color: #2d3748;
   color: #ffffff;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.button-group {
+.edit-button-group {
   display: flex;
   justify-content: flex-end;
   width: 100%;
 }
 
-.save-button,
-.cancel-button {
+.edit-save-button,
+.edit-cancel-button {
   color: #a0aec0;
   cursor: pointer;
   background: none;
@@ -58,8 +58,8 @@
   transition: background-color 0.2s, color 0.2s;
 }
 
-.save-button:hover,
-.cancel-button:hover {
+.edit-save-button:hover,
+.edit-cancel-button:hover {
   background-color: #4a5568;
   color: #ffffff;
 }

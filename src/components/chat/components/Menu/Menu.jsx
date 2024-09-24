@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import './menu.css';
 import { FaUser, FaBell, FaLock, FaComments, FaGlobe } from 'react-icons/fa';
 import ProfileModal from '../ProfileModel/ProfileModal.jsx';
-import EditFieldModal from '../ProfileModel/EditFieldModal.jsx';
+import { useTranslation } from 'react-i18next';
+import EditFieldModal from '../ProfileModel/button/ui/EditFieldModal.jsx';
+import PrivacyAndSecuritySettings from '../PrivateAndSecurity/PrivacyAndSecuritySettings.jsx';
+import LanguageSettings from '../LaunguageSettings/LanguageSettings.jsx';
 
 const Menu = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
   const [isEditFieldModalOpen, setEditFieldModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setPrivacyModalOpen] = useState(false);
+  const [isLanguageModalOpen, setLanguageModalOpen] = useState(false);
   const [editingField, setEditingField] = useState(null);
 
   const [user, setUser] = useState({
@@ -30,11 +36,24 @@ const Menu = ({ isOpen, onClose }) => {
     setEditFieldModalOpen(false);
   };
 
+  const openPrivacyModal = () => setPrivacyModalOpen(true);
+  const closePrivacyModal = () => setPrivacyModalOpen(false);
+
+  const openLanguageModal = () => setLanguageModalOpen(true);
+  const closeLanguageModal = () => setLanguageModalOpen(false);
+
   const handleFieldChange = (event) => {
     const { name, value } = event.target;
     setUser((prevUser) => ({
       ...prevUser,
       [name]: value,
+    }));
+  };
+
+  const handleAvatarChange = (file) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      avatar: URL.createObjectURL(file),
     }));
   };
 
@@ -50,22 +69,22 @@ const Menu = ({ isOpen, onClose }) => {
         </div>
         <ul>
           <li onClick={openProfileModal}>
-            <FaUser className="icon" /> Мой профиль
+            <FaUser className="icon" /> {t('Мой профиль')}
           </li>
-          <li onClick={() => alert('Уведомления')}>
-            <FaBell className="icon" /> Уведомления
+          <li onClick={() => alert(t('Уведомления'))}>
+            <FaBell className="icon" /> {t('Уведомления')}
           </li>
-          <li onClick={() => alert('Приватность и защита')}>
-            <FaLock className="icon" /> Приватность и защита
+          <li onClick={openPrivacyModal}>
+            <FaLock className="icon" /> {t('Приватность и защита')}
           </li>
-          <li onClick={() => alert('Настройки чата')}>
-            <FaComments className="icon" /> Настройки чата
+          <li onClick={() => alert(t('Настройки чата'))}>
+            <FaComments className="icon" /> {t('Настройки чата')}
           </li>
-          <li onClick={() => alert('Язык')}>
-            <FaGlobe className="icon" /> Язык
+          <li onClick={openLanguageModal}>
+            <FaGlobe className="icon" /> {t('Язык')}
           </li>
         </ul>
-        <button onClick={onClose}>Закрыть</button>
+        <button onClick={onClose}>{t('Закрыть')}</button>
       </div>
 
       {isProfileModalOpen && (
@@ -73,6 +92,7 @@ const Menu = ({ isOpen, onClose }) => {
           user={user}
           onClose={closeProfileModal}
           onEditField={openEditFieldModal}
+          onAvatarChange={handleAvatarChange}
         />
       )}
 
@@ -82,6 +102,18 @@ const Menu = ({ isOpen, onClose }) => {
           value={user[editingField]}
           onClose={closeEditFieldModal}
           onSave={handleFieldChange}
+        />
+      )}
+
+      {isPrivacyModalOpen && (
+        <PrivacyAndSecuritySettings
+          onClose={closePrivacyModal}
+        />
+      )}
+
+      {isLanguageModalOpen && (
+        <LanguageSettings
+          onClose={closeLanguageModal}
         />
       )}
     </>
