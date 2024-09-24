@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './menu.css';
 import { FaUser, FaBell, FaLock, FaComments, FaGlobe } from 'react-icons/fa';
-import ProfileModal from '../ProfileModel/ProfileModel.js';
-import EditFieldModal from '../ProfileModel/EditFieldModal.js';
+import ProfileModal from '../ProfileModel/ProfileModal.jsx';
+import EditFieldModal from '../ProfileModel/EditFieldModal.jsx';
 
 const Menu = ({ isOpen, onClose }) => {
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);

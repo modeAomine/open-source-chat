@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import FriendList from '../chat/components/FriendList/FriendList.js';
-import ChatArea from '../chat/components/ChatArea/ChatArea.js';
-import Menu from '../chat/components/Menu/Menu.js';
+import FriendList from './components/FriendList/FriendList.jsx';
+import ChatArea from './components/ChatArea/ChatArea.jsx';
+import Menu from './components/Menu/Menu.jsx';
 import './chat.css';
 
 const Chat = () => {

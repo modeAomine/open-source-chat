@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SearchBar from '../SearchBar/SearchBar.js';
+import SearchBar from '../SearchBar/SearchBar.jsx';
 import './friendList.css';
 
 const friends = [
