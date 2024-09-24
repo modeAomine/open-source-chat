@@ -32,13 +32,13 @@
     margin-bottom: 1rem;
   }
   
-  .avatar {
+  /* .avatar {
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
     margin-bottom: 1rem;
     cursor: pointer;
-  }
+  } */
   
   .bio {
     font-size: 0.875rem;
