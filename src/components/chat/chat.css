@@ -1,0 +1,23 @@
+.chat {
+  display: flex;
+  height: 100%;
+  background-color: #1a202c;
+  color: #ffffff;
+}
+
+.menu-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: #a0aec0;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  color: #ffffff;
+}
+
+.menu-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}

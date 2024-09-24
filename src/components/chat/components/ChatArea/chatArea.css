@@ -1,0 +1,14 @@
+.chat-area {
+  flex-grow: 1;
+  padding: 1rem;
+  background-color: #1a202c;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-area h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
