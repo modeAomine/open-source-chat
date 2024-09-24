@@ -23,7 +23,6 @@
 
 .modal-content h2 {
   margin-bottom: 1rem;
-  color: #ffffff;
 }
 
 .modal-content input {
@@ -40,9 +39,6 @@
   margin-top: 1rem;
   color: #a0aec0;
   cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 1rem;
 }
 
 .modal-content button:hover {

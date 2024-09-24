@@ -12,14 +12,17 @@ const EditFieldModal = ({ field, value, onClose, onSave }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Изменить {field}</h2>
+        <h2 className="modal-title">Изменить {field}</h2>
         <input
           type="text"
           value={newValue}
           onChange={(e) => setNewValue(e.target.value)}
+          className="input-field"
         />
-        <button onClick={handleSave}>Сохранить</button>
-        <button onClick={onClose}>Отмена</button>
+        <div className="button-group">
+          <button className="save-button" onClick={handleSave}>Сохранить</button>
+          <button className="cancel-button" onClick={onClose}>Отмена</button>
+        </div>
       </div>
     </div>
   );

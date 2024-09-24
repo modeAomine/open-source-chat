@@ -8,44 +8,48 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
   background-color: #2d3748;
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 0.5rem;
   width: 80%;
   max-width: 30rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.modal-content h2 {
-  margin-bottom: 1rem;
+.modal-title {
+  margin-bottom: 1.5rem;
   color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .user-details {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1rem;
   width: 100%;
 }
 
-/* .avatar {
-  width: 5rem;
-  height: 5rem;
+.avatar {
+  /* width: 8rem;
+  height: 8rem; */
   border-radius: 50%;
   margin-bottom: 1rem;
   cursor: pointer;
-} */
+  border: 2px solid #4a5568;
+}
 
 .bio {
   font-size: 0.875rem;
   color: #a0aec0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
@@ -55,25 +59,45 @@
   width: 100%;
 }
 
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  color: #a0aec0;
+  margin-right: 0.5rem;
+}
+
+.label {
+  color: #a0aec0;
+  font-size: 0.875rem;
+  margin-right: 0.5rem;
+}
+
 .name,
 .phone,
 .username {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  margin-bottom: 0.5rem;
   color: #ffffff;
 }
 
-.modal-content button {
-  margin-top: 1rem;
+.close-button {
+  margin-top: 1.5rem;
   color: #a0aec0;
   cursor: pointer;
   background: none;
   border: none;
   font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s, color 0.2s;
 }
 
-.modal-content button:hover {
+.close-button:hover {
+  background-color: #4a5568;
   color: #ffffff;
 }
