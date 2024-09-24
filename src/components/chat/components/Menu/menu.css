@@ -10,15 +10,30 @@
   overflow-y: auto;
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .menu.open {
   transform: translateX(0);
 }
 
-.menu.open ul {
-  margin-left: -2.5rem;
-  margin-right: 2rem;
+.menu .close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #a0aec0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu .close-button:hover {
+  background-color: #4a5568;
+  color: #ffffff;
 }
 
 .user-profile {
@@ -48,13 +63,9 @@
   color: #a0aec0;
 }
 
-.menu h2 {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
 .menu ul {
+  margin-left: -2rem;
+  margin-right: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -63,10 +74,11 @@
 .menu li {
   display: flex;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.75rem;
   background-color: #4a5568;
   border-radius: 0.5rem;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .menu li:hover {
@@ -74,16 +86,24 @@
 }
 
 .menu li .icon {
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
 }
 
 .menu button {
   margin-top: 1rem;
   color: #a0aec0;
   cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .menu button:hover {
+  background-color: #4a5568;
   color: #ffffff;
 }
 
@@ -97,21 +117,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
   background-color: #2d3748;
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 0.5rem;
   width: 80%;
   max-width: 30rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.modal-content h2 {
-  margin-bottom: 1rem;
+.modal-title {
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .user-details {
@@ -147,12 +172,19 @@
 }
 
 .modal-content button {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   color: #a0aec0;
   cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .modal-content button:hover {
+  background-color: #4a5568;
   color: #ffffff;
 }
 

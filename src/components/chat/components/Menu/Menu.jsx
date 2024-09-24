@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './menu.css';
-import { FaUser, FaBell, FaLock, FaComments, FaGlobe } from 'react-icons/fa';
+import { FaUser, FaBell, FaLock, FaComments, FaGlobe, FaSignOutAlt, FaTimes } from 'react-icons/fa';
 import ProfileModal from '../ProfileModel/ProfileModal.jsx';
 import { useTranslation } from 'react-i18next';
 import EditFieldModal from '../ProfileModel/button/ui/EditFieldModal.jsx';
@@ -60,6 +60,9 @@ const Menu = ({ isOpen, onClose }) => {
   return (
     <>
       <div className={`menu ${isOpen ? 'open' : ''}`}>
+        <button className="close-button" onClick={onClose}>
+          <FaTimes />
+        </button>
         <div className="user-profile">
           <img src={user.avatar} alt="User" className="avatar" />
           <div className="user-info">
@@ -83,8 +86,10 @@ const Menu = ({ isOpen, onClose }) => {
           <li onClick={openLanguageModal}>
             <FaGlobe className="icon" /> {t('Язык')}
           </li>
+          <li onClick={() => alert(t('Выйти'))}>
+            <FaSignOutAlt className="icon" /> {t('Выйти')}
+          </li>
         </ul>
-        <button onClick={onClose}>{t('Закрыть')}</button>
       </div>
 
       {isProfileModalOpen && (
