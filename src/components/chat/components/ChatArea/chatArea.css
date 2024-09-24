@@ -1,14 +1,118 @@
 .chat-area {
-  flex-grow: 1;
-  padding: 1rem;
-  background-color: #1a202c;
-  color: #ffffff;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  background-color: #15181f;
+  color: #ffffff;
+  padding: 1rem;
 }
 
-.chat-area h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
+.chat-area h3 {
+  text-align: center;
+  margin-top: 30%;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem;
+}
+
+.chat-header .avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.chat-header .name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.message {
+  max-width: 70%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.message.me {
+  align-self: flex-end;
+  background-color: #4a5568;
+}
+
+.message.friend {
+  align-self: flex-start;
+  background-color: #718096;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  background-color: #2d3748;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.chat-input input {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  outline: none;
+  padding: 0.5rem;
+}
+
+.chat-input button {
+  background-color: transparent;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.chat-input button:hover {
+  color: #ffffff;
+}
+
+.attach-icon, .voice-icon, .video-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.voice-message-button {
+  position: relative;
+}
+
+.voice-icon.hidden, .video-icon.hidden {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.voice-icon, .video-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.voice-message-button.recording-video .voice-icon {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.voice-message-button.recording-video .video-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }

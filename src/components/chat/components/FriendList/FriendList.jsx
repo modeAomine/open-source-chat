@@ -26,7 +26,7 @@ const friends = [
   },
 ];
 
-const FriendList = () => {
+const FriendList = ({ onSelectFriend }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -46,7 +46,7 @@ const FriendList = () => {
       </div>
       <div className="friends">
         {filteredFriends.map((friend) => (
-          <div key={friend.id} className="friend">
+          <div key={friend.id} className="friend" onClick={() => onSelectFriend(friend)}>
             <img src={friend.avatar} alt={friend.name} className="avatar" />
             <div className="friend-info">
               <div className="name">{friend.name}</div>
