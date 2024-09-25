@@ -1,39 +1,58 @@
 import React, { useState } from 'react';
-import { loginUser } from '../service/api.js';
+import { loginUser } from '../service/api.jsx';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import './login.css';
+import logo from '../../static/logo.svg';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [message] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await loginUser({ username, password });
-      setMessage('Login successful');
-      // Здесь вы можете сохранить токены в localStorage или другое хранилище
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Login successful',
+      });
       localStorage.setItem('access_token', response.access_token);
       localStorage.setItem('refresh_token', response.refresh_token);
+      navigate('/'); // Redirect to home page
     } catch (error) {
-      setMessage('Login failed');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Login failed',
+      });
     }
   };
 
   return (
-    <div>
+    <div className="login-container">
+      <div className="logo">
+        <img src={logo} alt="Logo" />
+      </div>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <div>
+        <div className="form-group">
           <label>Username:</label>
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
         </div>
-        <div>
+        <div className="form-group">
           <label>Password:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <button type="submit">Login</button>
       </form>
       {message && <p>{message}</p>}
+      <p className="register-link">
+        Нет аккаунта? <a href="/register">Зарегистрируйтесь</a>.
+      </p>
     </div>
   );
 };
