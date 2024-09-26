@@ -1,0 +1,26 @@
+/* Add this to your VoiceVideoButton.css file */
+.voice__button {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .icon-container {
+    position: relative;
+    width: 24px; /* Adjust the width to fit your icons */
+    height: 24px; /* Adjust the height to fit your icons */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .voice__icon {
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .voice__icon.hidden {
+    opacity: 0;
+  }

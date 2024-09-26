@@ -13,7 +13,7 @@ const Chat = () => {
   return (
     <div className="chat">
       <FriendList onSelectFriend={setSelectedFriend} />
-      <ChatArea friend={selectedFriend} />
+      <ChatArea friend={selectedFriend} className="chat__area"/>
       <Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       {!isMenuOpen && (
         <button

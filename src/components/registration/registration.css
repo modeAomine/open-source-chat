@@ -39,7 +39,7 @@ h2 {
   font-size: 16px;
 }
 
-button {
+.button__submit {
   margin-left: 30%;
   padding: 10px 20px;
   background-color: #161c22;
@@ -50,7 +50,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.button__submit button:hover {
   background-color: #0056b3;
 }
 
