@@ -31,7 +31,6 @@ const ChatArea = ({ friend }) => {
     { id: 3, text: 'Все хорошо, спасибо!', sender: 'me', time: '10:02' },
   ];
 
-  // Check if `friend` is defined
   if (!friend) {
     return <div className="chat__area">
       <div className="close__chat__area">

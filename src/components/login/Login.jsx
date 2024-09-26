@@ -22,7 +22,7 @@ const Login = () => {
       });
       localStorage.setItem('access_token', response.access_token);
       localStorage.setItem('refresh_token', response.refresh_token);
-      navigate('/'); // Redirect to home page
+      navigate('/chat');
     } catch (error) {
       Swal.fire({
         icon: 'error',

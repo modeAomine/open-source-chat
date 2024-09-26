@@ -2,8 +2,6 @@ import axios from 'axios';
 
 let url;
 
-console.log('REACT_APP_ENV:', process.env.REACT_APP_ENV);
-
 if (process.env.REACT_APP_ENV === 'debug') {
   url = 'http://127.0.0.1:8000';
 } else {

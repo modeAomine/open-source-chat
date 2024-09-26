@@ -6,7 +6,7 @@
 
 ## Технологический стек
 
-- **Frontend**: React
+- **Frontend**: React + ts
 - **Backend**: Python FastAPI
 
 ## Особенности
