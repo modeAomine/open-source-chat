@@ -13,7 +13,7 @@ export const registerUser = async (userData) => {
     const response = await axios.post(url + '/auth/register', userData);
     return response.data;
   } catch (error) {
-    throw new Error('Registration failed');
+    throw new Error('Ошибка регистрации');
   }
 };
 
@@ -22,7 +22,7 @@ export const loginUser = async (userData) => {
     const response = await axios.post(url + '/auth/login', userData);
     return response.data;
   } catch (error) {
-    throw new Error('Login failed');
+    throw new Error('Ошибка авторизации');
   }
 };
 
@@ -35,7 +35,31 @@ export const logout = async () => {
       }
     });
     return response.data;
-  } catch {
-    throw new Error('Logout failed');
+  } catch (error) {
+    throw new Error('Ошибка выхода');
+  }
+};
+
+export const current_user = async (accessToken) => {
+  try {
+    const response = await axios.get(url + '/user/user', {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Ошибка получения пользователя из (data)');
+  }
+};
+
+export const refresh_token = async (refresh_token) => {
+  try {
+    const response = await axios.post(url + '/token/refresh', {
+      refresh_token: refresh_token
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Ошибка обновления refresh_token');
   }
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './menu.css';
 import { FaUser, FaBell, FaLock, FaComments, FaGlobe, FaSignOutAlt, FaTimes } from 'react-icons/fa';
 import ProfileModal from '../ProfileModel/ProfileModal.jsx';
@@ -16,15 +16,15 @@ const Menu = ({ isOpen, onClose }) => {
   const [isLanguageModalOpen, setLanguageModalOpen] = useState(false);
   const [editingField, setEditingField] = useState(null);
 
-  const [user, setUser] = useState({
-    name: 'Имя пользователя',
-    phone: '+7 123 456 78 90',
-    username: 'username',
-    bio: 'Привет! Я пользователь этого чата.',
-    avatar: 'https://via.placeholder.com/50',
-  });
+  const { user, logout, setUser, fetchUser } = useAuth();
 
-  const { logout } = useAuth();
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (accessToken && refreshToken && !user) {
+      fetchUser(accessToken, refreshToken);
+    }
+  }, [fetchUser, user]);
 
   const openProfileModal = () => setProfileModalOpen(true);
   const closeProfileModal = () => setProfileModalOpen(false);
@@ -60,19 +60,29 @@ const Menu = ({ isOpen, onClose }) => {
     }));
   };
 
+  const defaultAvatar = 'https://via.placeholder.com/50';
+
   return (
     <>
       <div className={`menu ${isOpen ? 'open' : ''}`}>
         <button className="close-button" onClick={onClose}>
           <FaTimes />
         </button>
-        <div className="user-profile">
-          <img src={user.avatar} alt="User" className="avatar" />
-          <div className="user-info">
-            <div className="name">{user.name}</div>
-            <div className="email">{user.username}</div>
+        {user ? (
+          <div className="user-profile">
+            <img src={user.avatar || defaultAvatar} alt="User" className="avatar" />
+            <div className="user-info">
+              <div className="name">{user.name}</div>
+              <div className="email">{user.email}</div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="user-profile">
+            <div className="user-info">
+              <div className="name">Загрузка...</div>
+            </div>
+          </div>
+        )}
         <ul>
           <li onClick={openProfileModal}>
             <FaUser className="icon" /> {t('Мой профиль')}
