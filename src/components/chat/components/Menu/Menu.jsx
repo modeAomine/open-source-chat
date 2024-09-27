@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import EditFieldModal from '../ProfileModel/button/ui/EditFieldModal.jsx';
 import PrivacyAndSecuritySettings from '../PrivateAndSecurity/PrivacyAndSecuritySettings.jsx';
 import LanguageSettings from '../LaunguageSettings/LanguageSettings.jsx';
+import { useAuth } from '../../../middleware/AuthContext.jsx';
 
 const Menu = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
@@ -22,6 +23,8 @@ const Menu = ({ isOpen, onClose }) => {
     bio: 'Привет! Я пользователь этого чата.',
     avatar: 'https://via.placeholder.com/50',
   });
+
+  const { logout } = useAuth();
 
   const openProfileModal = () => setProfileModalOpen(true);
   const closeProfileModal = () => setProfileModalOpen(false);
@@ -86,7 +89,7 @@ const Menu = ({ isOpen, onClose }) => {
           <li onClick={openLanguageModal}>
             <FaGlobe className="icon" /> {t('Язык')}
           </li>
-          <li onClick={() => alert(t('Выйти'))}>
+          <li onClick={logout}>
             <FaSignOutAlt className="icon" /> {t('Выйти')}
           </li>
         </ul>

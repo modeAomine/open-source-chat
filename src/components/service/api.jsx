@@ -25,3 +25,17 @@ export const loginUser = async (userData) => {
     throw new Error('Login failed');
   }
 };
+
+export const logout = async () => {
+  try {
+    const accessToken = localStorage.getItem('access_token');
+    const response = await axios.post(url + '/auth/logout', {}, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+    return response.data;
+  } catch {
+    throw new Error('Logout failed');
+  }
+};

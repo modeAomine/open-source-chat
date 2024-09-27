@@ -4,12 +4,14 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import logo from '../../static/logo.svg';
+import { useAuth } from '../middleware/AuthContext';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,8 +22,7 @@ const Login = () => {
         title: 'Success',
         text: 'Login successful',
       });
-      localStorage.setItem('access_token', response.access_token);
-      localStorage.setItem('refresh_token', response.refresh_token);
+      login(response.access_token, response.refresh_token);
       navigate('/chat');
     } catch (error) {
       Swal.fire({

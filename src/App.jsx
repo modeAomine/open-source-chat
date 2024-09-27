@@ -10,6 +10,14 @@ function ProtectedRoute({ children }) {
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 }
 
+function Logout() {
+  const {logout} = useAuth();
+  React.useEffect(() => {
+    logout();
+  }, [logout]);
+  return null;
+}
+
 function App() {
   return (
     <AuthProvider>
@@ -25,6 +33,7 @@ function App() {
           }
         />
         <Route path="/" element={<Chat />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </AuthProvider>
   );

@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../service/api.jsx';  // Импортируем метод logout
 
 const AuthContext = createContext();
 
@@ -8,32 +9,39 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('access_token');
-        if (token) {
+        const accessToken = localStorage.getItem('access_token');
+        const refreshToken = localStorage.getItem('refresh_token');
+        if (accessToken && refreshToken) {
             setIsAuthenticated(true);
-            navigate('/chat')
+            navigate('/chat');
         } else {
             setIsAuthenticated(false);
-            navigate('/login')
+            navigate('/login');
         }
     }, [navigate]);
 
-    const login = (token) => {
-        localStorage.setItem('access_token', token);
+    const login = (accessToken, refreshToken) => {
+        localStorage.setItem('access_token', accessToken);
+        localStorage.setItem('refresh_token', refreshToken);
         setIsAuthenticated(true);
     };
 
-    const logout = (token) => {
-        localStorage.setItem('access_token');
-        localStorage.setItem('refresh_token')
-        setIsAuthenticated(false);
-        navigate('/login')
+    const logoutUser = async () => {
+        try {
+            await logout();
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            setIsAuthenticated(false);
+            navigate('/login');
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout: logoutUser }}>
             {children}
-        </AuthContext.Provider> 
+        </AuthContext.Provider>
     );
 };
 
