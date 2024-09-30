@@ -64,3 +64,15 @@ export const refresh_token = async (refreshToken) => {
     throw new Error('Ошибка обновления refresh_token');
   }
 };
+
+export const update_user_field = async (username, field, newValue, accessToken) => {
+    const response = await axios.patch(`${url}/user/${username}`, {
+        field: field,
+        value: newValue,
+    }, {
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
+    return response.data;
+};

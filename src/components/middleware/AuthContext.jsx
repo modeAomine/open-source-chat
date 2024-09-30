@@ -25,6 +25,22 @@ export const AuthProvider = ({ children }) => {
         }
     }, [navigate]);
 
+    const handleTokenRefresh = useCallback(async () => {
+        const refreshToken = localStorage.getItem('refresh_token');
+        if (!refreshToken) {
+            return logoutUser();
+        }
+        try {
+            const newTokens = await refresh_token(refreshToken);
+            localStorage.setItem('access_token', newTokens.access_token);
+            localStorage.setItem('refresh_token', newTokens.refresh_token);
+            await fetchUser(newTokens.access_token);
+        } catch (refreshError) {
+            console.error('Ошибка обновления токена:', refreshError);
+            logoutUser();
+        }
+    }, [logoutUser]);
+
     const fetchUser = useCallback(async (accessToken) => {
         if (isFetchingUser || user) return;
         setIsFetchingUser(true);
@@ -43,23 +59,7 @@ export const AuthProvider = ({ children }) => {
         } finally {
             setIsFetchingUser(false);
         }
-    }, [isFetchingUser, user, navigate, logoutUser]);
-
-    const handleTokenRefresh = useCallback(async () => {
-        const refreshToken = localStorage.getItem('refresh_token');
-        if (!refreshToken) {
-            return logoutUser();
-        }
-        try {
-            const newTokens = await refresh_token(refreshToken);
-            localStorage.setItem('access_token', newTokens.access_token);
-            localStorage.setItem('refresh_token', newTokens.refresh_token);
-            fetchUser(newTokens.access_token); // Сразу загружаем данные пользователя
-        } catch (refreshError) {
-            console.error('Ошибка обновления токена:', refreshError);
-            logoutUser();
-        }
-    }, [logoutUser, fetchUser]);
+    }, [isFetchingUser, user, navigate, logoutUser, handleTokenRefresh]);
 
     useEffect(() => {
         const accessToken = localStorage.getItem('access_token');

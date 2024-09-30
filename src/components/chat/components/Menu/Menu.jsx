@@ -111,6 +111,7 @@ const Menu = ({ isOpen, onClose }) => {
           onClose={closeProfileModal}
           onEditField={openEditFieldModal}
           onAvatarChange={handleAvatarChange}
+          setUser={setUser}
         />
       )}
 
