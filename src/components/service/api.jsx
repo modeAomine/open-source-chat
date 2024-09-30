@@ -49,14 +49,15 @@ export const current_user = async (accessToken) => {
     });
     return response.data;
   } catch (error) {
+    console.error('Ошибка получения пользователя:', error);
     throw new Error('Ошибка получения пользователя из (data)');
   }
 };
 
-export const refresh_token = async (refresh_token) => {
+export const refresh_token = async (refreshToken) => {
   try {
     const response = await axios.post(url + '/token/refresh', {
-      refresh_token: refresh_token
+      refresh_token: refreshToken
     });
     return response.data;
   } catch (error) {
