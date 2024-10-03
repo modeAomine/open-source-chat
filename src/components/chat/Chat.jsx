@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import FriendList from './components/FriendList/FriendList.jsx';
 import ChatArea from './components/ChatArea/ChatArea.jsx';
 import Menu from './components/Menu/Menu.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import LanguageSettings from '../chat/components/LaunguageSettings/LanguageSettings.jsx';
 import './chat.css';
 
@@ -28,6 +30,7 @@ const Chat = () => {
       {isLanguageSettingsOpen && (
         <LanguageSettings onClose={() => setIsLanguageSettingsOpen(false)} />
       )}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

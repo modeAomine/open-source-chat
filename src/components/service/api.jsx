@@ -65,14 +65,14 @@ export const refresh_token = async (refreshToken) => {
   }
 };
 
-export const update_user_field = async (username, field, newValue, accessToken) => {
-    const response = await axios.patch(`${url}/user/${username}`, {
-        field: field,
-        value: newValue,
-    }, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    });
-    return response.data;
+export const update_user_field = async (field, newValue, accessToken) => {
+  const response = await axios.patch(`${url}/user/edit_user`, {
+      field: field,
+      value: newValue,
+  }, {
+      headers: {
+          'Authorization': `Bearer ${accessToken}`
+      }
+  });
+  return response.data;
 };

@@ -101,3 +101,32 @@
   background-color: #4a5568;
   color: #ffffff;
 }
+
+i {
+  color: #80838b;
+  font-size: 13px;
+}
+
+.bio-container {
+  text-align: center;
+}
+
+.bio {
+  font-size: 0.875rem;
+  color: #a0aec0;
+  margin-top: 0.5rem;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.bio:hover {
+  color: #ffffff;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}

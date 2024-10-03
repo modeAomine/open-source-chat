@@ -51,7 +51,7 @@ const Register = () => {
           title: 'Success',
           text: response.message,
         });
-        navigate('/login'); // Redirect to login page
+        navigate('/login');
       } catch (error) {
         Swal.fire({
           icon: 'error',

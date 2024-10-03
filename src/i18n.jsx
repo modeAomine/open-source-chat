@@ -44,6 +44,9 @@ const resources = {
       "Имя": "Name",
       "Телефон": "Phone",
       "Username": "Username",
+      "Имя пользователя": "Username",
+      "успешно обновлено": "Successfully updated",
+      "success_field_upd": "successfully updated",
     }
   },
   ru: {
@@ -88,6 +91,9 @@ const resources = {
       "Имя": "Имя",
       "Телефон": "Телефон",
       "Username": "Username",
+      "Имя пользователя": "Имя пользователя",
+      "успешно обновлено": "успешно обновлено",
+      "success_field_upd": "успешно обновлено"
     }
   },
   es: {
@@ -132,6 +138,9 @@ const resources = {
       "Имя": "Nombre",
       "Телефон": "Teléfono",
       "Username": "Nombre de Usuario",
+      "Имя пользователя": "Nombre de usuario",
+      "успешно обновлено": "Actualizado con éxito",
+      "success_field_upd": "actualizado con éxito",
     }
   },
   fr: {
@@ -176,6 +185,9 @@ const resources = {
       "Имя": "Nom",
       "Телефон": "Téléphone",
       "Username": "Nom d'Utilisateur",
+      "Имя пользователя": "Pseudo",
+      "успешно обновлено": "Mise à jour réussie",
+      "success_field_upd": "mise à jour réussie",
     }
   }
 };
