@@ -7,6 +7,7 @@ import EditFieldModal from '../ProfileModel/button/ui/EditFieldModal.jsx';
 import PrivacyAndSecuritySettings from '../PrivateAndSecurity/PrivacyAndSecuritySettings.jsx';
 import LanguageSettings from '../LaunguageSettings/LanguageSettings.jsx';
 import { useAuth } from '../../../middleware/AuthContext.jsx';
+import Avatar from '../../../../static/default.svg'
 
 const Menu = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
@@ -60,8 +61,6 @@ const Menu = ({ isOpen, onClose }) => {
     }));
   };
 
-  const defaultAvatar = 'https://via.placeholder.com/50';
-
   return (
     <>
       <div className={`menu ${isOpen ? 'open' : ''}`}>
@@ -70,10 +69,10 @@ const Menu = ({ isOpen, onClose }) => {
         </button>
         {user ? (
           <div className="user-profile">
-            <img src={user.avatar || defaultAvatar} alt="User" className="menu__avatar" />
+            <img src={user.avatar || Avatar} alt="User" className="menu__avatar" />
             <div className="user-info">
               <div className="name">{user.name}</div>
-              <div className="email">{user.email}</div>
+              <div className="menu__email">{user.email}</div>
             </div>
           </div>
         ) : (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ProfileModal.css';
-import { FaUser, FaPhone, FaAt } from 'react-icons/fa';
+import { FaUser, FaPhone, FaAt, FaEnvelope } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import EditFieldModal from './button/ui/EditFieldModal';
 import { update_user_field } from '../../../service/api';
@@ -117,6 +117,13 @@ const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
                             <span className="label">{t('Имя')}:</span>
                             <div className="profile__name" onClick={() => handleEditField('name')}>
                                 {user.name ? user.name : <i>{t('Добавьте имя пользователя')}</i>}
+                            </div>
+                        </div>
+                        <div className="info-item">
+                            <FaEnvelope className="icon" />
+                            <span className="label">{t('Email')}:</span>
+                            <div className="email" onClick={() => handleEditField('email')}>
+                                {user.email ? user.email : <i>{t('Добавить email')}</i>}
                             </div>
                         </div>
                         <div className="info-item">

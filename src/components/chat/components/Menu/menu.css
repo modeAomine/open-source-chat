@@ -58,7 +58,7 @@
   font-weight: 600;
 }
 
-.email {
+.menu__email {
   font-size: 0.875rem;
   color: #a0aec0;
 }
@@ -161,7 +161,7 @@
   font-weight: 600;
 }
 
-.user-details .email {
+.user-details .menu__email {
   font-size: 1rem;
   color: #a0aec0;
 }
