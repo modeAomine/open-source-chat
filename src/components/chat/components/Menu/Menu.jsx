@@ -70,7 +70,7 @@ const Menu = ({ isOpen, onClose }) => {
         </button>
         {user ? (
           <div className="user-profile">
-            <img src={user.avatar || defaultAvatar} alt="User" className="avatar" />
+            <img src={user.avatar || defaultAvatar} alt="User" className="menu__avatar" />
             <div className="user-info">
               <div className="name">{user.name}</div>
               <div className="email">{user.email}</div>

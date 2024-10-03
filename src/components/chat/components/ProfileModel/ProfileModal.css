@@ -38,12 +38,12 @@
 }
 
 .avatar {
-  /* width: 8rem;
-  height: 8rem; */
   border-radius: 50%;
-  margin-bottom: 1rem;
-  cursor: pointer;
-  border: 2px solid #4a5568;
+  width: 7rem;
+  height: 7rem;
+  /* margin-bottom: 1rem; */
+  /* cursor: pointer; */
+  /* border: 2px solid #4a5568; */
 }
 
 .bio {
@@ -76,11 +76,11 @@
   margin-right: 0.5rem;
 }
 
-.name,
+.profile__name,
 .phone,
 .username {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 100;
   cursor: pointer;
   color: #ffffff;
 }

@@ -6,6 +6,7 @@ import EditFieldModal from './button/ui/EditFieldModal';
 import { update_user_field } from '../../../service/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Avatar from '../../../../static/default.svg'
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
@@ -95,7 +96,7 @@ const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
                 <h2 className="modal-title">{t('Мой профиль')}</h2>
                 <div className="user-details">
                     <label htmlFor="avatar-upload" className="avatar-label">
-                        <img src={avatarFile || user.avatar} alt="User" className="avatar" />
+                        <img src={avatarFile || user.avatar || Avatar} className="avatar" />
                     </label>
                     <input
                         id="avatar-upload"
@@ -114,7 +115,7 @@ const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
                         <div className="info-item">
                             <FaUser className="icon" />
                             <span className="label">{t('Имя')}:</span>
-                            <div className="name" onClick={() => handleEditField('name')}>
+                            <div className="profile__name" onClick={() => handleEditField('name')}>
                                 {user.name ? user.name : <i>{t('Добавьте имя пользователя')}</i>}
                             </div>
                         </div>
@@ -128,7 +129,7 @@ const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
                         <div className="info-item">
                             <FaAt className="icon" />
                             <span className="label">{t('Username')}:</span>
-                            <div className="username" onClick={() => handleEditField('username')}>{user.username}</div>
+                            <div className="username" onClick={() => handleEditField('username')}>{'@' + user.username}</div>
                         </div>
                     </div>
                 </div>

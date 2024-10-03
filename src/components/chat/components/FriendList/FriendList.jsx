@@ -47,7 +47,7 @@ const FriendList = ({ onSelectFriend }) => {
       <div className="friends">
         {filteredFriends.map((friend) => (
           <div key={friend.id} className="friend" onClick={() => onSelectFriend(friend)}>
-            <img src={friend.avatar} alt={friend.name} className="avatar" />
+            <img src={friend.avatar} alt={friend.name} className="menu__avatar" />
             <div className="friend-info">
               <div className="name">{friend.name}</div>
               <div className="last-message">{friend.lastMessage}</div>
