@@ -11,12 +11,18 @@ const Chat = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState(null);
   const [isLanguageSettingsOpen, setIsLanguageSettingsOpen] = useState(false);
+  const [user, setUser] = useState({});
 
   return (
     <div className="chat">
       <FriendList onSelectFriend={setSelectedFriend} />
       <ChatArea friend={selectedFriend} className="chat__area"/>
-      <Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <Menu 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)}
+        user={user}
+        setUser={setUser} 
+        />
       {!isMenuOpen && (
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}

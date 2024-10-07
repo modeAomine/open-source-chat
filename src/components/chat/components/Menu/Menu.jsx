@@ -54,12 +54,12 @@ const Menu = ({ isOpen, onClose }) => {
     }));
   };
 
-  const handleAvatarChange = (file) => {
+  const handleAvatarChange = (newAvatar) => {
     setUser((prevUser) => ({
       ...prevUser,
-      avatar: URL.createObjectURL(file),
+      avatar: newAvatar,
     }));
-  };
+  };  
 
   return (
     <>
@@ -67,7 +67,7 @@ const Menu = ({ isOpen, onClose }) => {
         <button className="close-button" onClick={onClose}>
           <FaTimes />
         </button>
-        {user ? (
+        {user?.avatar ? (
           <div className="user-profile">
             <img src={user.avatar || Avatar} alt="User" className="menu__avatar" />
             <div className="user-info">

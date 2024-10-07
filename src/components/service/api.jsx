@@ -49,8 +49,7 @@ export const current_user = async (accessToken) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Ошибка получения пользователя:', error);
-    throw new Error('Ошибка получения пользователя из (data)');
+    throw new Error('Ошибка получения пользователя: ' + error.response?.data?.detail || error.message);
   }
 };
 
@@ -58,21 +57,60 @@ export const refresh_token = async (refreshToken) => {
   try {
     const response = await axios.post(url + '/token/refresh', {
       refresh_token: refreshToken
+    }, {
+      headers: {
+        'Authorization': `Bearer ${refreshToken}`
+      }
     });
+
+    localStorage.setItem('access_token', response.data.access_token);
+    localStorage.setItem('refresh_token', response.data.refresh_token);
+
     return response.data;
   } catch (error) {
-    throw new Error('Ошибка обновления refresh_token');
+    throw new Error('Ошибка обновления refresh_token: ' + error.response.data.detail);
   }
 };
 
 export const update_user_field = async (field, newValue, accessToken) => {
   const response = await axios.patch(`${url}/user/edit_user`, {
-      field: field,
-      value: newValue,
+    field: field,
+    value: newValue,
   }, {
-      headers: {
-          'Authorization': `Bearer ${accessToken}`
-      }
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
   });
   return response.data;
 };
+
+export const user_avatar = async (file, accessToken) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await axios.post(`${url}/user/upload_avatar`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error('Ошибка при загрузки аватарки пользователя: ' + error.response.data.detail);
+  }
+};
+
+export const get_user_avatar = async (user_id, accessToken) => {
+  try {
+    const response = await axios.get(`${url}/user/user/${user_id}/avatar`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Ошибка при получении аватарки пользователя: ' + error.response.data.detail);
+  }
+}

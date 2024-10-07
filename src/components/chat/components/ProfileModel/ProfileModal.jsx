@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProfileModal.css';
 import { FaUser, FaPhone, FaAt, FaEnvelope } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 import EditFieldModal from './button/ui/EditFieldModal';
-import { update_user_field } from '../../../service/api';
+import { get_user_avatar, update_user_field, user_avatar } from '../../../service/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Avatar from '../../../../static/default.svg'
+import Avatar from '../../../../static/default.svg';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
-const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
+const ProfileModal = ({ user, setUser, onClose }) => {
     const { t } = useTranslation();
     const [avatarFile, setAvatarFile] = useState(null);
     const [isEditFieldModalOpen, setEditFieldModalOpen] = useState(false);
@@ -26,13 +26,50 @@ const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
         fieldName = t('Имя');
     } else if (currentField === 'bio') {
         fieldName = t('О себе');
+    } else if (currentField === 'email') {
+        fieldName = t('email');
     }
 
-    const handleAvatarChange = (event) => {
+    useEffect(() => {
+        const fetchAvatar = async () => {
+            try {
+                const accessToken = localStorage.getItem('access_token');
+                if (accessToken && user.id) {
+                    const urlAvatar = await get_user_avatar(user.id, accessToken);
+                    setAvatarFile(urlAvatar);
+                }
+            } catch (error) {
+                console.error('Ошибка при получении аватарки пользователя: ', error.message);
+            }
+        };
+
+        if (user.id) {
+            fetchAvatar();
+        }
+    }, [user.id]);
+
+    const handleAvatarChange = async (event) => {
         const file = event.target.files[0];
+        const accessToken = localStorage.getItem('access_token');
         if (file) {
-            setAvatarFile(URL.createObjectURL(file));
-            onAvatarChange(file);
+            try {
+                await user_avatar(file, accessToken); 
+                const newAvatarUrl = URL.createObjectURL(file); // Отображаем локально загруженный файл
+                setAvatarFile(newAvatarUrl); // Обновляем аватар локально
+                setUser((prevUser) => ({
+                    ...prevUser,
+                    avatar: newAvatarUrl, // Сохраняем аватар для последующего использования
+                }));
+                toast.success('Аватарка успешно обновлена.', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                });
+            } catch (error) {
+                toast.error('Ошибка при обновлении аватарки.', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                });
+            }
         }
     };
 
@@ -44,13 +81,10 @@ const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
 
     const handleSaveField = async (newValue) => {
         if (currentField === 'username' && user.username === newValue) {
-            toast.error(
-                'Новое имя пользователя не может совпадать с текущим.',
-                {
-                    position: 'top-right',
-                    autoClose: 3000,
-                }
-            );
+            toast.error('Новое имя пользователя не может совпадать с текущим.', {
+                position: 'top-right',
+                autoClose: 3000,
+            });
             return;
         }
 
@@ -96,7 +130,7 @@ const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
                 <h2 className="modal-title">{t('Мой профиль')}</h2>
                 <div className="user-details">
                     <label htmlFor="avatar-upload" className="avatar-label">
-                        <img src={avatarFile || user.avatar || Avatar} className="avatar" />
+                        <img src={avatarFile || user.avatar || Avatar} className="avatar" alt="Аватар" />
                     </label>
                     <input
                         id="avatar-upload"
@@ -106,7 +140,6 @@ const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
                         style={{ display: 'none' }}
                     />
                     <div className="bio-container">
-                        {/* <span className="label">{t('О себе')}</span> */}
                         <div className="bio" onClick={() => handleEditField('bio')}>
                             {user.bio ? user.bio : <i>{t('Добавьте информацию о себе')}</i>}
                         </div>
@@ -136,7 +169,9 @@ const ProfileModal = ({ user, setUser, onClose, onAvatarChange }) => {
                         <div className="info-item">
                             <FaAt className="icon" />
                             <span className="label">{t('Username')}:</span>
-                            <div className="username" onClick={() => handleEditField('username')}>{'@' + user.username}</div>
+                            <div className="username" onClick={() => handleEditField('username')}>
+                                {'@' + user.username}
+                            </div>
                         </div>
                     </div>
                 </div>
