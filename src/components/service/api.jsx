@@ -114,3 +114,29 @@ export const get_user_avatar = async (user_id, accessToken) => {
     throw new Error('Ошибка при получении аватарки пользователя: ' + error.response.data.detail);
   }
 }
+
+export const search_user = async (searchTerm) => {
+  return new Promise((resolve, reject) => {
+    const socket = new WebSocket('ws://127.0.0.1:8000/socket/ws/users')
+
+    socket.onopen = () => {
+      socket.send(searchTerm)
+    }
+
+    socket.onmessage = (event) => {
+      console.log('WebSocket message received:', event.data);
+      const result = JSON.parse(event.data)
+      resolve(result)
+      socket.close()
+    }
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error: ', error)
+      reject('Произошла ошибка при подключение к серверу')
+    }
+
+    socket.onclose = () => {
+      console.log('WebSocket connection close')
+    }
+  })
+}
