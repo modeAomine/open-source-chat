@@ -1,7 +1,7 @@
 .chat {
   display: flex;
   height: 100%;
-  background-color: #1a202c;
+  background-color: #353434;
   color: #ffffff;
 }
 
@@ -20,4 +20,16 @@
 .menu-icon {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.menu__avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
 }

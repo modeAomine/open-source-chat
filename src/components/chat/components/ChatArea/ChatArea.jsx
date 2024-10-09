@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './chatArea.css';
-import { FaPaperPlane, FaPaperclip } from 'react-icons/fa';
+import { FaPaperPlane, FaPaperclip, FaChevronLeft } from 'react-icons/fa'; // Импортируем иконку
 import VoiceVideoButton from './buttons/ui/VoiceOrVideoButton';
 
-const ChatArea = ({ friend }) => {
+const ChatArea = ({ friend, onClose }) => { // Добавьте onClose в пропсы
   const [isRecording, setIsRecording] = useState(false);
   const messagesEndRef = useRef(null);
 
@@ -34,7 +34,7 @@ const ChatArea = ({ friend }) => {
   if (!friend) {
     return <div className="chat__area">
       <div className="close__chat__area">
-      Выберите друга для начала чата
+        Выберите друга для начала чата
       </div>
     </div>;
   }
@@ -43,6 +43,9 @@ const ChatArea = ({ friend }) => {
     <div className="chat__area">
       {/* Chat Header */}
       <div className="chat__header">
+        <button className="close-chat-button" onClick={onClose}>
+          <FaChevronLeft />
+        </button>
         <img src={friend.avatar} alt={friend.name} className="avatar__open_chat" />
         <div className="name">{friend.name}</div>
       </div>

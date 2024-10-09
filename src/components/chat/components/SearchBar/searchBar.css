@@ -11,7 +11,7 @@
     border-radius: 20px;
     font-size: 16px;
     transition: border-color 0.3s ease;
-    margin-left: 3rem;
+    margin-left: 1rem;
 }
 
 .search-input:focus {
@@ -39,4 +39,5 @@
     max-height: 300px;
     overflow-y: auto;
     z-index: 10;
+    transition: color 0.3s ease;
 }
