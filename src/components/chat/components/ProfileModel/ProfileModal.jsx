@@ -54,11 +54,11 @@ const ProfileModal = ({ user, setUser, onClose }) => {
         if (file) {
             try {
                 await user_avatar(file, accessToken); 
-                const newAvatarUrl = URL.createObjectURL(file); // Отображаем локально загруженный файл
-                setAvatarFile(newAvatarUrl); // Обновляем аватар локально
+                const newAvatarUrl = URL.createObjectURL(file);
+                setAvatarFile(newAvatarUrl);
                 setUser((prevUser) => ({
                     ...prevUser,
-                    avatar: newAvatarUrl, // Сохраняем аватар для последующего использования
+                    avatar: newAvatarUrl,
                 }));
                 toast.success('Аватарка успешно обновлена.', {
                     position: 'top-right',

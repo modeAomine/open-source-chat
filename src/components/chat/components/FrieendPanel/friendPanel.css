@@ -1,0 +1,107 @@
+.friends-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #353434;
+  border-radius: 8px;
+  width: calc(85% - 150px);
+}
+
+.friends-panel__header {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  padding: 10px;
+  max-width: 60%;
+  margin: 10px 20px;
+}
+
+.friends-panel__header button {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  color: #b9bbbe;
+  font-size: 14px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.friends-panel__header .active-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  background-color: #959595;
+  transition: all 0.3s ease;
+}
+
+.friends-panel__header button:hover {
+  background-color: #40444b;
+}
+
+.friends-panel__header button.active {
+  color: white;
+}
+
+.friends-panel__header .tab {
+  position: relative;
+  display: inline-block;
+}
+
+.friends-panel__search {
+  margin: 10px 20px;
+  padding: 5px 10px;
+  background-color: #40444b;
+  border: none;
+  border-radius: 5px;
+  width: 60%;
+  color: white;
+}
+
+.friends-panel__list {
+  flex: 2;
+  overflow-y: auto;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.friend-item:last-child {
+  border-bottom: none;
+}
+
+.friend-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.friend-name {
+  color: white;
+  font-size: 14px;
+}
+
+.friends-panel__activity {
+  flex-grow: 1; /* Заставляем занимать оставшееся место */
+  background-color: #36393f;
+  padding: 10px;
+  border-radius: 8px;
+  overflow-y: auto; /* Добавляем скроллинг на случай большого количества активности */
+}
+
+.friends-panel__activity h3 {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.friends-panel__content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}

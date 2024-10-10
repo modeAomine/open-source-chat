@@ -1,0 +1,38 @@
+.activity-feed {
+    padding: 10px;
+    background-color: #353434;
+    color: #fff;
+    border-radius: 8px;
+    width: calc(30% - 90px);
+    height: calc(90% - 200px);
+    margin: 10px 20px 10px 20px;
+    position: absolute;
+    right: 0;
+}
+
+.activity-feed h3 {
+    margin-top: 0;
+}
+
+.activity-feed ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.activity-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.activity__user__info {
+    display: flex;
+    flex-direction: column;
+}
