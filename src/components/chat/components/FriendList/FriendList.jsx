@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SearchBar from '../SearchBar/SearchBar.jsx';
 import './friendList.css';
 import UserModal from './ui/UserModal.jsx';
+import ChatArea from '../ChatArea/ChatArea.jsx';
 
 const friends = [
   {
@@ -31,16 +32,27 @@ const FriendList = ({ onSelectFriend }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeChat, setActiveChat] = useState(null);
 
   const handleSelectField = (user) => {
-    setSelectedUser(user);
-    setIsModalOpen(true)
-  }
+    if (searchResults.length > 0) {
+      setSelectedUser(user);
+      setIsModalOpen(true);
+    } else {
+      if (activeChat || activeChat?.id !== user.id) {
+        onSelectFriend(user);
+      }
+    }
+  };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedUser(null);
   }
+
+  const handleCloseChat = () => {
+    setActiveChat(null);
+  };
 
   const filteredFriends = friends.filter((friend) =>
     searchResults.length > 0
@@ -89,6 +101,7 @@ const FriendList = ({ onSelectFriend }) => {
 
 
       {isModalOpen && <UserModal user={selectedUser} onClose={handleCloseModal} />}
+      {activeChat && <ChatArea friend={activeChat} onClose={handleCloseChat} />}
     </div>
   );
 };

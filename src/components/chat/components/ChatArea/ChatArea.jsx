@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './chatArea.css';
-import { FaPaperPlane, FaPaperclip, FaChevronLeft } from 'react-icons/fa'; // Импортируем иконку
+import { FaPaperPlane, FaPaperclip, FaChevronLeft } from 'react-icons/fa';
 import VoiceVideoButton from './buttons/ui/VoiceOrVideoButton';
 
-const ChatArea = ({ friend, onClose }) => { // Добавьте onClose в пропсы
+const ChatArea = ({ friend, onClose }) => {
   const [isRecording, setIsRecording] = useState(false);
   const messagesEndRef = useRef(null);
 

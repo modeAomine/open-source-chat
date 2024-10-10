@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import LanguageSettings from '../chat/components/LaunguageSettings/LanguageSettings.jsx';
 import './chat.css';
 import Group from './components/GroupBar/Group.jsx';
-import FriendsPanel from './components/FrieendPanel/FriendPanel.jsx'
+import FriendsPanel from './components/FrieendPanel/FriendPanel.jsx';
 import { get_pending_friend } from '../service/api.jsx';
 
 const groups = [
@@ -30,42 +30,35 @@ const Chat = () => {
     username: 'username',
     filename: '/path/to/avatar.png',
   });
-  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const fetchPendingRequests = async () => {
-        try {
-            const requests = await get_pending_friend();
-            setPendingRequests(requests);
-        } catch (error) {
-            console.error(error.message);
-        }
+      try {
+        const requests = await get_pending_friend();
+        setPendingRequests(requests);
+      } catch (error) {
+        console.error(error.message);
+      }
     };
 
     fetchPendingRequests();
-}, []);
-
+  }, []);
 
   const handleFriendSelect = (friend) => {
     setSelectedFriend(friend);
-    setIsChatOpen(true);
   };
 
   const handleCloseChat = () => {
     setSelectedFriend(null);
-    setIsChatOpen(false);
   };
 
   return (
     <div className="chat">
       <FriendList onSelectFriend={handleFriendSelect} />
-      {!isChatOpen && <FriendsPanel friends={friends} pendingRequests={pendingRequests} />} 
-      {isChatOpen && (
-        <ChatArea
-          friend={selectedFriend}
-          onClose={handleCloseChat}
-          className="chat__area"
-        />
+      {selectedFriend ? (
+        <ChatArea friend={selectedFriend} onClose={handleCloseChat} className="chat__area" />
+      ) : (
+        <FriendsPanel friends={friends} pendingRequests={pendingRequests} onClose={handleCloseChat} className='friend-panel' />
       )}
       {isLanguageSettingsOpen && (
         <LanguageSettings onClose={() => setIsLanguageSettingsOpen(false)} />

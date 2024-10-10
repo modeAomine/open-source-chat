@@ -90,8 +90,8 @@ const FriendsPanel = ({ friends, pendingRequests }) => {
                         localPendingRequests.map((request) => (
                             <div key={request.id} className="friend-item">
                                 <img
-                                    src={request.filename || 'https://via.placeholder.com/50'} // используйте filename
-                                    alt={request.username} // используйте username
+                                    src={request.filename || 'https://via.placeholder.com/50'}
+                                    alt={request.username}
                                     className="friend-avatar"
                                 />
                                 <span className="friend-name">{request.username}</span>
@@ -110,8 +110,8 @@ const FriendsPanel = ({ friends, pendingRequests }) => {
                             .map((friend) => (
                                 <div key={friend.id} className="friend-item">
                                     <img
-                                        src={friend.filename || 'https://via.placeholder.com/50'} // используйте filename
-                                        alt={friend.username} // используйте username
+                                        src={friend.filename || 'https://via.placeholder.com/50'}
+                                        alt={friend.username}
                                         className="friend-avatar"
                                     />
                                     <span className="friend-name">{friend.username}</span>

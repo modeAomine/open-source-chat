@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import './searchBar.css';
-import { search_user } from '../../../service/api'; // Предполагается, что этот API запрос возвращает список найденных пользователей
+import { search_user } from '../../../service/api';
 
 const SearchBar = ({ setSearchResults }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if (searchTerm.length > 1) {  // Начинать поиск только если более 1 символа
+        if (searchTerm.length > 1) {
             setIsLoading(true);
             const delayDebounceFn = setTimeout(() => {
                 search_user(searchTerm)
                     .then(data => {
                         setSearchResults(data);
-                        setIsLoading(false);  // Убираем индикатор загрузки
+                        setIsLoading(false);
                     })
                     .catch(err => {
                         console.error(err);
-                        setIsLoading(false);  // Убираем индикатор загрузки при ошибке
+                        setIsLoading(false);
                     });
             }, 500);
 
