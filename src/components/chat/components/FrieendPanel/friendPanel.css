@@ -12,7 +12,7 @@
   justify-content: space-around;
   position: relative;
   padding: 10px;
-  max-width: 60%;
+  max-width: 100%;
   margin: 10px 20px;
 }
 
@@ -87,11 +87,11 @@
 }
 
 .friends-panel__activity {
-  flex-grow: 1; /* Заставляем занимать оставшееся место */
+  flex-grow: 1;
   background-color: #36393f;
   padding: 10px;
   border-radius: 8px;
-  overflow-y: auto; /* Добавляем скроллинг на случай большого количества активности */
+  overflow-y: auto;
 }
 
 .friends-panel__activity h3 {

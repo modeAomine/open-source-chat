@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FriendList from './components/FriendList/FriendList.jsx';
 import ChatArea from './components/ChatArea/ChatArea.jsx';
 import MiniProfile from './components/MiniProfile/MiniProfile.jsx';
@@ -8,6 +8,7 @@ import LanguageSettings from '../chat/components/LaunguageSettings/LanguageSetti
 import './chat.css';
 import Group from './components/GroupBar/Group.jsx';
 import FriendsPanel from './components/FrieendPanel/FriendPanel.jsx'
+import { get_pending_friend } from '../service/api.jsx';
 
 const groups = [
   { id: 1, name: 'Group 1', avatar: 'https://via.placeholder.com/50' },
@@ -16,19 +17,34 @@ const groups = [
 ];
 
 const friends = [
-  { id: 1, name: 'Друг 1', avatar: 'https://via.placeholder.com/50', isOnline: true, isPending: false, isBlocked: false },
-  { id: 2, name: 'Друг 2', avatar: 'https://via.placeholder.com/50', isOnline: false, isPending: true, isBlocked: false },
-  { id: 3, name: 'Друг 3', avatar: 'https://via.placeholder.com/50', isOnline: false, isPending: false, isBlocked: true },
+  { id: 1, username: 'Друг 1', filename: 'https://via.placeholder.com/50', isOnline: true, isPending: false, isBlocked: false },
+  { id: 2, username: 'Друг 2', filename: 'https://via.placeholder.com/50', isOnline: false, isPending: true, isBlocked: false },
+  { id: 3, username: 'Друг 3', filename: 'https://via.placeholder.com/50', isOnline: false, isPending: false, isBlocked: true },
 ];
 
 const Chat = () => {
+  const [pendingRequests, setPendingRequests] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState(null);
   const [isLanguageSettingsOpen, setIsLanguageSettingsOpen] = useState(false);
   const [user] = useState({
     username: 'username',
-    avatar: '/path/to/avatar.png',
+    filename: '/path/to/avatar.png',
   });
   const [isChatOpen, setIsChatOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchPendingRequests = async () => {
+        try {
+            const requests = await get_pending_friend();
+            setPendingRequests(requests);
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
+    fetchPendingRequests();
+}, []);
+
 
   const handleFriendSelect = (friend) => {
     setSelectedFriend(friend);
@@ -43,7 +59,7 @@ const Chat = () => {
   return (
     <div className="chat">
       <FriendList onSelectFriend={handleFriendSelect} />
-      {!isChatOpen && <FriendsPanel friends={friends} />} {/* Отображайте FriendsPanel, когда чат не открыт */}
+      {!isChatOpen && <FriendsPanel friends={friends} pendingRequests={pendingRequests} />} 
       {isChatOpen && (
         <ChatArea
           friend={selectedFriend}

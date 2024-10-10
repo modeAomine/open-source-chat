@@ -115,6 +115,49 @@ export const get_user_avatar = async (user_id, accessToken) => {
   }
 }
 
+export const add_friends = async (user_id) => {
+  try {
+    const accessToken = localStorage.getItem('access_token');
+    const response = await axios.post(`${url}/friends/add_friend/${user_id}`, null, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
+    });
+    return response.data;
+  } catch (friendError) {
+    throw new Error('Ошибка при добавление в друзья: ' + friendError.response.data.detail)
+  }
+}
+
+export const confirm_add_friend = async (user_id) => {
+  try {
+    const accessToken = localStorage.getItem('access_token');
+    const response = await axios.post(`${url}/confirm_friendship/${user_id}`, null, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Ошибка при подтверждение дружбы: ' + error.response.data.detail)
+  }
+}
+
+export const get_pending_friend = async () => {
+  try {
+    const accessToken = localStorage.getItem('access_token');
+    const response = await axios.get(`${url}/friends/friendships/pending`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('Ошибка получения пользователей pending: ' + error.response.data.detail)
+  }
+}
+
+
 export const search_user = async (searchTerm) => {
   return new Promise((resolve, reject) => {
     const socket = new WebSocket('ws://127.0.0.1:8000/socket/ws/users')

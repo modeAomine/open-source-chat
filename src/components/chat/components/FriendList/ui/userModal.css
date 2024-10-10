@@ -1,0 +1,126 @@
+.modal-overlay__search-user {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content__search-user {
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+}
+
+.modal-avatar__search-user {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 20px 0;
+    border: 3px solid #444;
+}
+
+.modal-actions__search-user {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-action-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    transition: background 0.2s, color 0.2s;
+    font-size: 14px;
+    gap: 10px;
+}
+
+.modal-action-button:hover {
+    background-color: #555;
+}
+
+.modal-action-button i {
+    margin-right: 8px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #bbb;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+.modal-tabs__search-user {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    border-bottom: 2px solid #333;
+}
+
+.tab-button {
+    padding: 10px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #bbb;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.tab-button:hover {
+    color: #fff;
+}
+
+.tab-button.active {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.modal-tab-content__search-user {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #ddd;
+    text-align: left;
+}
+
+.modal-username__search-user h2 {
+    color: #ddd;
+}

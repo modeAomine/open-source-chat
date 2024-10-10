@@ -10,6 +10,7 @@
     width: 15%;
     margin-left: 7%;
     bottom: 1rem;
+    transition: all 0.3s ease;
 }
 
 .mini-profile__avatar img {
@@ -54,4 +55,58 @@
 
 .mini-profile__icon:hover {
     color: #ddd;
+}
+
+.user-info {
+    position: absolute;
+    bottom: 80px; /* Располагаем над мини-профилем */
+    background-color: #444;
+    padding: 10px;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    width: 100%;
+    left: 0;
+}
+
+.user-info.visible {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    max-width: 280px;
+    background-color: #ffffff00;
+}
+
+.user-info__name {
+    font-weight: bold;
+}
+
+.user-info__email {
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 4px;
+}
+
+.user-info__bio {
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 4px;
+}
+
+.user-info__avatar {
+    width: 95%;
+    height: 70%;
+    border-radius: 10%;
+}
+
+.user-info__main {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
 }

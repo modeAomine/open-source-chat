@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './miniProfile.css';
 import { useAuth } from '../../../middleware/AuthContext.jsx';
-import Avatar from '../../../../static/default.svg';
 import mic_icon from '../../../../static/mic.svg';
 import ushi_icon from '../../../../static/ushi.svg';
 import settings_icon from '../../../../static/settings.svg';
-import ProfileModal from '../ProfileModel/ProfileModal.jsx';
 
-
-const MiniProfile = () => {
+const MiniProfile = ({ onOpenSettings }) => {
     const { user, fetchUser } = useAuth();
-    const [isInfoVisible, setInfoVisible] = useState(false);
-    const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
+    const [isUserInfoVisible, setUserInfoVisible] = useState(false);
 
     useEffect(() => {
         const accessToken = localStorage.getItem('access_token');
@@ -22,21 +18,21 @@ const MiniProfile = () => {
     }, [fetchUser, user]);
 
     const toggleUserInfo = () => {
-        setInfoVisible(!isInfoVisible);
-    };
-
-    const openSettingsModal = () => {
-        setSettingsModalOpen(true);
-    };
-
-    const closeSettingsModal = () => {
-        setSettingsModalOpen(false);
+        setUserInfoVisible(!isUserInfoVisible);
     };
 
     return (
         <div className="mini-profile">
             <div className="mini-profile__avatar" onClick={toggleUserInfo}>
-                <img src={user?.avatar || Avatar} alt="User Avatar" />
+                <img src={user?.avatar} alt="User Avatar" />
+            </div>
+            <div className={`user-info ${isUserInfoVisible ? 'visible' : ''}`}>
+                <div className='user-info__main'>
+                    <span className="user-info__name">{user?.username}</span>
+                    <span className="user-info__email">{user?.email}</span>
+                    <span className='user-info__bio'>{user?.bio}</span>
+                </div>
+                <img className='user-info__avatar' src={user?.avatar} />
             </div>
             <div className="mini-profile__info">
                 <span className="mini-profile__username">{user?.username}</span>
@@ -49,25 +45,9 @@ const MiniProfile = () => {
                     src={settings_icon}
                     alt="Settings Icon"
                     className="mini-profile__icon"
-                    onClick={openSettingsModal}
+                    onClick={onOpenSettings}
                 />
             </div>
-
-            {isInfoVisible && (
-                <div className="mini-profile__user-info">
-                    <p><strong>Username:</strong> {user?.username}</p>
-                    <p><strong>Email:</strong> {user?.email || 'Not provided'}</p>
-                    <p><strong>Status:</strong> {user?.status || 'No status'}</p>
-                </div>
-            )}
-
-            {isSettingsModalOpen && (
-                <ProfileModal
-                    user={user}
-                    setUser={() => {}} // Передайте функцию, если нужно обновлять пользователя
-                    onClose={closeSettingsModal}
-                />
-            )}
         </div>
     );
 };
