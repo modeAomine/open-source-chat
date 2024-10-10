@@ -4,7 +4,7 @@ import { FaPaperPlane, FaPaperclip, FaChevronLeft } from 'react-icons/fa';
 import VoiceVideoButton from './buttons/ui/VoiceOrVideoButton';
 
 const ChatArea = ({ friend, onClose }) => {
-  const [isRecording, setIsRecording] = useState(false);
+  const [ setIsRecording] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {

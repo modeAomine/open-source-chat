@@ -8,7 +8,7 @@ import LanguageSettings from '../chat/components/LaunguageSettings/LanguageSetti
 import './chat.css';
 import Group from './components/GroupBar/Group.jsx';
 import FriendsPanel from './components/FrieendPanel/FriendPanel.jsx';
-import { get_pending_friend } from '../service/api.jsx';
+import { get_status_friend } from '../service/api.jsx';
 
 const groups = [
   { id: 1, name: 'Group 1', avatar: 'https://via.placeholder.com/50' },
@@ -17,9 +17,9 @@ const groups = [
 ];
 
 const friends = [
-  { id: 1, username: 'Друг 1', filename: 'https://via.placeholder.com/50', isOnline: true, isPending: false, isBlocked: false },
-  { id: 2, username: 'Друг 2', filename: 'https://via.placeholder.com/50', isOnline: false, isPending: true, isBlocked: false },
-  { id: 3, username: 'Друг 3', filename: 'https://via.placeholder.com/50', isOnline: false, isPending: false, isBlocked: true },
+  // { id: 1, username: 'Друг 1', filename: 'https://via.placeholder.com/50', isOnline: true, isPending: false, isBlocked: false },
+  // { id: 2, username: 'Друг 2', filename: 'https://via.placeholder.com/50', isOnline: false, isPending: true, isBlocked: false },
+  // { id: 3, username: 'Друг 3', filename: 'https://via.placeholder.com/50', isOnline: false, isPending: false, isBlocked: true },
 ];
 
 const Chat = () => {
@@ -34,7 +34,7 @@ const Chat = () => {
   useEffect(() => {
     const fetchPendingRequests = async () => {
       try {
-        const requests = await get_pending_friend();
+        const requests = await get_status_friend();
         setPendingRequests(requests);
       } catch (error) {
         console.error(error.message);

@@ -143,10 +143,10 @@ export const confirm_add_friend = async (user_id) => {
   }
 }
 
-export const get_pending_friend = async () => {
+export const get_status_friend = async () => {
   try {
     const accessToken = localStorage.getItem('access_token');
-    const response = await axios.get(`${url}/friends/friendships/pending`, {
+    const response = await axios.get(`${url}/friends/friendships`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       }

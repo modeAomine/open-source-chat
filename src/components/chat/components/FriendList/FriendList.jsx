@@ -5,27 +5,27 @@ import UserModal from './ui/UserModal.jsx';
 import ChatArea from '../ChatArea/ChatArea.jsx';
 
 const friends = [
-  {
-    id: 1,
-    username: 'Друг 1',
-    avatar: 'https://via.placeholder.com/50',
-    lastMessage: 'Привет! Как дела?',
-    time: '10:30',
-  },
-  {
-    id: 2,
-    username: 'Друг 2',
-    avatar: 'https://via.placeholder.com/50',
-    lastMessage: 'Увидимся позже!',
-    time: '11:45',
-  },
-  {
-    id: 3,
-    username: 'Друг 3',
-    avatar: 'https://via.placeholder.com/50',
-    lastMessage: 'До встречи!',
-    time: '12:00',
-  },
+  // {
+  //   id: 1,
+  //   username: 'Друг 1',
+  //   avatar: 'https://via.placeholder.com/50',
+  //   lastMessage: 'Привет! Как дела?',
+  //   time: '10:30',
+  // },
+  // {
+  //   id: 2,
+  //   username: 'Друг 2',
+  //   avatar: 'https://via.placeholder.com/50',
+  //   lastMessage: 'Увидимся позже!',
+  //   time: '11:45',
+  // },
+  // {
+  //   id: 3,
+  //   username: 'Друг 3',
+  //   avatar: 'https://via.placeholder.com/50',
+  //   lastMessage: 'До встречи!',
+  //   time: '12:00',
+  // },
 ];
 
 const FriendList = ({ onSelectFriend }) => {
