@@ -31,16 +31,18 @@ body {
 }
 
 .avatar__open_chat {
-  width: 40px;
-  height: 40px;
+  max-width: 50px; /* Убедитесь, что это значение соответствует размеру изображения */
+  max-height: 50px; /* Убедитесь, что это значение соответствует размеру изображения */
   border-radius: 50%;
   margin-right: 10px;
+  position: relative;
+  z-index: 1; /* Убедитесь, что аватар поверх индикатора */
 }
 
 .name {
-  flex-grow: 1;
   font-size: 16px;
-  font-weight: blob;
+  font-weight: bold;
+  color: white;
 }
 
 .online__icon {
@@ -194,4 +196,67 @@ body {
 
 .close-chat-button:hover {
   color: #616161;
+}
+
+.chat__header__icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: calc(80% - 150px);
+}
+
+.chat__header__icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #979797;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.chat__header__icon:hover {
+  color: #616161;
+}
+
+.avatar__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.status__indicator {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid transparent; 
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status__indicator.online {
+  border-color: #44d362;
+}
+
+.status__indicator.offline {
+  border-color: #818181;
+}
+
+.header__user__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header__user__item .activity {
+  font-size: 14px;
+  color: #818181;
+}
+
+.container__content-left {
+  margin-left: calc(15% - 150px);
 }

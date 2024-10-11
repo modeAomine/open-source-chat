@@ -50,7 +50,7 @@ const FriendList = ({ friends, onSelectFriend }) => {
         <div className="friends">
           {filteredFriends.map((friend) => (
             <div key={friend.id} className="friend" onClick={() => onSelectFriend(friend)}>
-              <img src={friend.avatar} alt={friend.username} className="menu__avatar" />
+              <img src={friend.avatar || 'https://via.placeholder.com/50'} alt={friend.username} className="menu__avatar" />
               <div className="friend-info">
                 <div className="name">{friend.username}</div>
                 <div className="last-message">{friend.lastMessage}</div>

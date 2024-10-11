@@ -47,6 +47,7 @@
 .friends-panel__header .tab {
   position: relative;
   display: inline-block;
+  border-radius: 15px;
 }
 
 .friends-panel__search {

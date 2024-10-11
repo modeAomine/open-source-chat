@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './chatArea.css';
-import { FaPaperPlane, FaPaperclip, FaChevronLeft } from 'react-icons/fa';
+import { FaPaperPlane, FaPaperclip, FaChevronLeft, FaSearch, FaPhone, FaEllipsisV } from 'react-icons/fa';
 import VoiceVideoButton from './buttons/ui/VoiceOrVideoButton';
 
 const ChatArea = ({ friend, onClose }) => {
-  const [ setIsRecording] = useState(false);
+  const [setIsRecording] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -46,8 +46,32 @@ const ChatArea = ({ friend, onClose }) => {
         <button className="close-chat-button" onClick={onClose}>
           <FaChevronLeft />
         </button>
-        <img src={friend.avatar} alt={friend.name} className="avatar__open_chat" />
-        <div className="name">{friend.name}</div>
+        <div className='container__content-left'>
+          <div className="avatar__container">
+            <div className={`status__indicator ${friend.isOnline ? 'online' : 'online'}`}></div>
+            <img src={friend.filename || 'https://via.placeholder.com/50'} alt={friend.username} className="avatar__open_chat" />
+          </div>
+        </div>
+        <div className='header__user__item'>
+          <div className="name">{friend.username}</div>
+          <div className='activity'>{friend.activity || 'online'}</div>
+        </div>
+
+        {/* <div className='header__user__item'>
+          <div className="name">{friend.username}</div>
+          <div className='activity'>{friend.activity || 'offline'}</div>
+        </div> */}
+        <div className="chat__header__icons">
+          <button className="chat__header__icon">
+            <FaSearch />
+          </button>
+          <button className="chat__header__icon">
+            <FaPhone />
+          </button>
+          <button className="chat__header__icon">
+            <FaEllipsisV />
+          </button>
+        </div>
       </div>
 
       {/* Messages */}
@@ -56,8 +80,8 @@ const ChatArea = ({ friend, onClose }) => {
           <div key={message.id} className={`message ${message.sender}`}>
             {message.sender === 'friend' && (
               <img
-                src={friend.avatar}
-                alt={friend.name}
+                src={friend.filename || 'https://via.placeholder.com/50'}
+                alt={friend.username}
                 className="message__avatar"
               />
             )}
