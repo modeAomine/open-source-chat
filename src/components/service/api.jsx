@@ -132,7 +132,7 @@ export const add_friends = async (user_id) => {
 export const confirm_add_friend = async (user_id) => {
   try {
     const accessToken = localStorage.getItem('access_token');
-    const response = await axios.post(`${url}/confirm_friendship/${user_id}`, null, {
+    const response = await axios.post(`${url}/friends/confirm_friendship/${user_id}`, null, {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
       }

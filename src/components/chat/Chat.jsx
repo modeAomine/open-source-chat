@@ -9,6 +9,7 @@ import './chat.css';
 import Group from './components/GroupBar/Group.jsx';
 import FriendsPanel from './components/FrieendPanel/FriendPanel.jsx';
 import { get_status_friend } from '../service/api.jsx';
+import UserModal from './components/FriendList/ui/UserModal.jsx';
 
 const groups = [
   { id: 1, name: 'Group 1', avatar: 'https://via.placeholder.com/50' },
@@ -16,33 +17,29 @@ const groups = [
   { id: 3, name: 'Group 3', avatar: 'https://via.placeholder.com/50' },
 ];
 
-const friends = [
-  // { id: 1, username: 'Друг 1', filename: 'https://via.placeholder.com/50', isOnline: true, isPending: false, isBlocked: false },
-  // { id: 2, username: 'Друг 2', filename: 'https://via.placeholder.com/50', isOnline: false, isPending: true, isBlocked: false },
-  // { id: 3, username: 'Друг 3', filename: 'https://via.placeholder.com/50', isOnline: false, isPending: false, isBlocked: true },
-];
-
 const Chat = () => {
-  const [pendingRequests, setPendingRequests] = useState([]);
+  const [friends, setFriends] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState(null);
   const [isLanguageSettingsOpen, setIsLanguageSettingsOpen] = useState(false);
   const [user] = useState({
     username: 'username',
     filename: '/path/to/avatar.png',
   });
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
-    const fetchPendingRequests = async () => {
-      try {
-        const requests = await get_status_friend();
-        setPendingRequests(requests);
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
-
-    fetchPendingRequests();
+    fetchFriends();
   }, []);
+
+  const fetchFriends = async () => {
+    try {
+      const friendsList = await get_status_friend();
+      setFriends(friendsList);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   const handleFriendSelect = (friend) => {
     setSelectedFriend(friend);
@@ -52,19 +49,47 @@ const Chat = () => {
     setSelectedFriend(null);
   };
 
+  const handleOpenUserModal = (user) => {
+    setSelectedUser(user);
+    setIsUserModalOpen(true);
+  };
+
+  const handleCloseUserModal = () => {
+    setIsUserModalOpen(false);
+    setSelectedUser(null);
+  };
+
   return (
     <div className="chat">
-      <FriendList onSelectFriend={handleFriendSelect} />
+      <FriendList friends={friends} onSelectFriend={handleFriendSelect} onOpenUserModal={handleOpenUserModal} />
+      
+      {/* Если выбран друг, рендерим компонент чата поверх панели */}
       {selectedFriend ? (
         <ChatArea friend={selectedFriend} onClose={handleCloseChat} className="chat__area" />
       ) : (
-        <FriendsPanel friends={friends} pendingRequests={pendingRequests} onClose={handleCloseChat} className='friend-panel' />
+        <FriendsPanel
+          friends={friends}
+          onClose={handleCloseChat}
+          fetchFriends={fetchFriends}
+          className="friend-panel"
+          onOpenUserModal={handleOpenUserModal}
+        />
       )}
+
       {isLanguageSettingsOpen && (
         <LanguageSettings onClose={() => setIsLanguageSettingsOpen(false)} />
       )}
+
       <Group groups={groups} />
       <MiniProfile user={user} />
+      {isUserModalOpen && (
+        <UserModal 
+          user={selectedUser} 
+          onClose={handleCloseUserModal} 
+          fetchFriends={fetchFriends} 
+          onSelectFriend={handleFriendSelect} 
+        />
+      )}
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );

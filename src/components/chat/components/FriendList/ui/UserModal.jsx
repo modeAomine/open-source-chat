@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { FaUserPlus, FaUserTimes, FaLock, FaUnlock, FaEllipsisV, FaCommentDots, FaTimes } from 'react-icons/fa'; //FaUserSlash, FaUserCheck,
+import { FaUserPlus, FaUserTimes, FaLock, FaUnlock, FaEllipsisV, FaCommentDots, FaTimes, FaUserSlash, FaUserCheck } from 'react-icons/fa'; // FaUserCheck,
 import './userModal.css';
-import { add_friends } from '../../../../service/api'; //, block_user, unblock_user, remove_friend
+import { add_friends, confirm_add_friend } from '../../../../service/api'; //, block_user, unblock_user, remove_friend
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const UserModal = ({ user, onClose }) => {
+const UserModal = ({ user, onClose, fetchFriends, onSelectFriend }) => {
     const [activeTab, setActiveTab] = useState('friends');
     const [isLoading, setIsLoading] = useState(false);
+    const [isFetching, setIsFetching] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
 
     if (!user) return null;
@@ -17,9 +18,32 @@ const UserModal = ({ user, onClose }) => {
             setIsLoading(true);
             await add_friends(user.id);
             toast.success(`Запрос на добавление в друзья отправлен: ${user.username}`);
+            if (!isFetching) {
+                setIsFetching(true);
+                await fetchFriends();
+                setIsFetching(false);
+            }
             onClose();
         } catch (friendError) {
             toast.error(`Ошибка: ${friendError.message}`);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleAcceptUser = async () => {
+        try {
+            setIsLoading(true);
+            await confirm_add_friend(user.id);
+            toast.success(`Теперь вы друзья с ${user.username} 😻`);
+            if (!isFetching) {
+                setIsFetching(true);
+                await fetchFriends();
+                setIsFetching(false);
+            }
+            onClose();
+        } catch (acceptError) {
+            toast.error('Ошибка =(');
         } finally {
             setIsLoading(false);
         }
@@ -30,6 +54,11 @@ const UserModal = ({ user, onClose }) => {
             setIsLoading(true);
             // await remove_friend(user.id);
             toast.success(`Пользователь удален из друзей: ${user.username}`);
+            if (!isFetching) {
+                setIsFetching(true);
+                await fetchFriends();
+                setIsFetching(false);
+            }
             onClose();
         } catch (removeError) {
             toast.error(`Ошибка: ${removeError.message}`);
@@ -43,6 +72,11 @@ const UserModal = ({ user, onClose }) => {
             setIsLoading(true);
             // await block_user(user.id);
             toast.success(`Пользователь заблокирован: ${user.username}`);
+            if (!isFetching) {
+                setIsFetching(true);
+                await fetchFriends();
+                setIsFetching(false);
+            }
             onClose();
         } catch (blockError) {
             toast.error(`Ошибка: ${blockError.message}`);
@@ -56,6 +90,11 @@ const UserModal = ({ user, onClose }) => {
             setIsLoading(true);
             // await unblock_user(user.id);
             toast.success(`Пользователь разблокирован: ${user.username}`);
+            if (!isFetching) {
+                setIsFetching(true);
+                await fetchFriends();
+                setIsFetching(false);
+            }
             onClose();
         } catch (unblockError) {
             toast.error(`Ошибка: ${unblockError.message}`);
@@ -64,8 +103,26 @@ const UserModal = ({ user, onClose }) => {
         }
     };
 
+    const handleCancleUser = async () => {
+        try {
+            setIsLoading(true);
+            //
+            toast.success('Заявка успешно отменена!');
+            if (!isFetching) {
+                setIsFetching(true);
+                await fetchFriends();
+                setIsFetching(false);
+            }
+            onClose();
+        } catch (userCane) {
+            toast.error('Ошибка!');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const handleOpenChat = () => {
-        console.log(`Открыть чат с ${user.username}`);
+        onSelectFriend(user);
         onClose();
     };
 
@@ -74,7 +131,7 @@ const UserModal = ({ user, onClose }) => {
     };
 
     const renderPrimaryAction = () => {
-        if (user.status === 'friends') {
+        if (user.status === 'confirmed') {
             return (
                 <button onClick={handleRemoveFriend} className="modal-action-button" disabled={isLoading}>
                     {isLoading ? 'Удаляем...' : <><FaUserTimes /> Удалить из друзей</>}
@@ -88,28 +145,24 @@ const UserModal = ({ user, onClose }) => {
             );
         } else if (user.status === 'pending') {
             return (
-                <button onClick={handleAddFriend} className="modal-action-button" disabled={isLoading}>
-                    {isLoading ? 'Добавляем...' : <><FaUserPlus /> Добавить в друзья</>}
+                <button onClick={handleAcceptUser} className="modal-action-button" disabled={isLoading}>
+                    {isLoading ? 'Принимаем...' : <><FaUserCheck /> Принять в друзья</>}
+                </button>
+            );
+        } else if (user.status === 'waiting') {
+            return (
+                <button onClick={handleCancleUser} className='modal-action-button' disabled={isLoading}>
+                    {isLoading ? 'Отменяем...' : <><FaUserSlash />Отменить заявку</>}
                 </button>
             );
         } else {
             return (
                 <button onClick={handleAddFriend} className="modal-action-button" disabled={isLoading}>
-                    {isLoading ? 'Добавляем...' : <><FaUserPlus /> Добавить в друзья</>}
+                    {isLoading ? 'Принимаем...' : <><FaUserPlus /> Принять в друзья</>}
                 </button>
             );
         }
     };
-
-    // const renderSecondaryActions = () => {
-    //     return (
-    //         <>
-    //             <button onClick={handleBlockUser} className="modal-action-button" disabled={isLoading}>
-    //                 <FaLock /> Заблокировать
-    //             </button>
-    //         </>
-    //     );
-    // };
 
     return (
         <div className="modal-overlay__search-user" onClick={onClose}>
@@ -142,7 +195,7 @@ const UserModal = ({ user, onClose }) => {
                             <button onClick={handleBlockUser} className="modal-action-button" disabled={isLoading}>
                                 <FaLock /> Заблокировать
                             </button>
-                            {/* Другие действия можно добавить сюда */}
+                            {/* Потом добавлю доп действия */}
                         </div>
                     )}
                 </div>

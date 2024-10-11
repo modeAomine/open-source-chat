@@ -10,7 +10,7 @@ const activities = [
 
 const TABS = ['all', 'online', 'offline', 'pending', 'blocked', 'submitted_applications'];
 
-const FriendsPanel = ({ friends, pendingRequests }) => {
+const FriendsPanel = ({ friends, fetchFriends, onOpenUserModal }) => {
     const [activeTab, setActiveTab] = useState(() => localStorage.getItem('activeTab') || 'all');
     const [searchTerm, setSearchTerm] = useState('');
     const [indicatorStyles, setIndicatorStyles] = useState({});
@@ -38,42 +38,24 @@ const FriendsPanel = ({ friends, pendingRequests }) => {
         }
     }, [activeTab]);
 
-    // const filteredFriends = friends.filter((friend) =>
-    //     friend.username.toLowerCase().includes(searchTerm.toLowerCase())
-    // );
-
     const handleUserClick = (user) => {
         setSelectedUser(user);
+        onOpenUserModal(user);
     };
 
     const handleCloseModal = () => {
         setSelectedUser(null);
     };
 
-    // const getFilteredUsers = () => {
-    //     if (activeTab === 'submitted_applications') {
-    //         return pendingRequests.filter(request => request.status !== 'blocked');
-    //     }
-
-    //     return filteredFriends.filter(friend => {
-    //         if (friend.status === 'blocked') {
-    //             return activeTab === 'blocked';
-    //         }
-
-    //         switch (activeTab) {
-    //             case 'all':
-    //                 return true;
-    //             case 'online':
-    //                 return friend.isOnline;
-    //             case 'offline':
-    //                 return !friend.isOnline;
-    //             case 'pending':
-    //                 return friend.status === 'pending';
-    //             default:
-    //                 return true;
-    //         }
-    //     });
-    // };
+    const filteredFriends = friends.filter(friend => {
+        if (activeTab === 'all') return friend.status === 'confirmed' && friend.status !== 'blocked';
+        if (activeTab === 'online') return friend.isOnline && friend.status === 'confirmed' && friend.status !== 'blocked';
+        if (activeTab === 'offline') return !friend.isOnline && friend.status === 'confirmed' && friend.status !== 'blocked';
+        if (activeTab === 'pending') return friend.status === 'pending';  // входящие заявки
+        if (activeTab === 'blocked') return friend.status === 'blocked';
+        if (activeTab === 'submitted_applications') return friend.status === 'submitted';  // исходящие заявки
+        return false;
+    });
 
     return (
         <div className="friends-panel">
@@ -104,62 +86,30 @@ const FriendsPanel = ({ friends, pendingRequests }) => {
                 className="friends-panel__search"
             />
 
-            <div className="friends-panel__content"> 
+            <div className="friends-panel__content">
                 <div className="friends-panel__list">
-                    {activeTab === 'submitted_applications' ? (
-                        pendingRequests
-                            .filter(request => request.status === 'pending')
-                            .map((request) => (
-                                <div key={request.id} className="friend-item" onClick={() => handleUserClick(request)}>
-                                    <img
-                                        src={request.filename || 'https://via.placeholder.com/50'}
-                                        alt={request.username}
-                                        className="friend-avatar"
-                                    /> 
-                                    <span className="friend-name">{request.username}</span>
-                                </div>
-                            )) //'all', 'online', 'offline', 'pending', 'blocked', 'submitted_applications'
-                    ) : activeTab === 'blocked' ? (
-                        pendingRequests
-                            .filter(friend => friend.status === 'blocked')
-                            .map((friend) => (
-                                <div key={friend.id} className="friend-item" onClick={() => handleUserClick(friend)}>
-                                    <img
-                                        src={friend.filename || 'https://via.placeholder.com/50'}
-                                        alt={friend.username}
-                                        className="friend-avatar"
-                                    />
-                                    <span className="friend-name">{friend.username}</span>
-                                </div>
-                            ))
-                    ) : (
-                        pendingRequests
-                            .filter(friend => {
-                                if (activeTab === 'all') return friend.status !== 'blocked';
-                                if (activeTab === 'online') return friend.isOnline && friend.status !== 'blocked';
-                                if (activeTab === 'offline') return !friend.isOnline && friend.status !== 'blocked';
-                                if (activeTab === 'pending') return friend.status === 'pending' && friend.status !== 'blocked';
-                                return false;
-                            })
-                            .map((friend) => (
-                                <div key={friend.id} className="friend-item" onClick={() => handleUserClick(friend)}>
-                                    <img
-                                        src={friend.filename || 'https://via.placeholder.com/50'}
-                                        alt={friend.username}
-                                        className="friend-avatar"
-                                    />
-                                    <span className="friend-name">{friend.username}</span>
-                                </div>
-                            ))
-                    )}
+                    {filteredFriends.map((friend) => (
+                        <div key={friend.id} className="friend-item" onClick={() => handleUserClick(friend)}>
+                            <img
+                                src={friend.filename || 'https://via.placeholder.com/50'}
+                                alt={friend.username}
+                                className="friend-avatar"
+                            />
+                            <span className="friend-name">{friend.username}</span>
+                        </div>
+                    ))}
                 </div>
 
                 <ActivityFeed activities={activities} />
             </div>
 
-
             {selectedUser && (
-                <UserModal user={selectedUser} onClose={handleCloseModal} />
+                <UserModal 
+                    user={selectedUser} 
+                    onClose={handleCloseModal} 
+                    fetchFriends={fetchFriends} 
+                    onSelectFriend={onOpenUserModal} 
+                />
             )}
         </div>
     );
