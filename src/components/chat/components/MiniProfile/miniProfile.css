@@ -66,7 +66,7 @@
     transform: translateY(20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: row;
     color: white;
     max-width: 280px;
     left: 0;
@@ -76,35 +76,88 @@
     display: flex;
     opacity: 1;
     transform: translateY(0);
-    flex-direction: column-reverse;
-    max-width: 280px;
-    background-color: #ffffff00;
+    flex-direction: row;
+    max-width: 285px;
+    background-image: url('https://i.pinimg.com/originals/46/6c/4d/466c4d0ec2824e15ff7def79f8ec2789.png');
+    flex-direction: row;
 }
 
 .user-info__name {
     font-weight: bold;
+    align-self: flex-end;
 }
 
 .user-info__email {
     font-size: 12px;
     color: #bbb;
     margin-top: 4px;
+    align-self: flex-end;
 }
 
 .user-info__bio {
+    cursor: default;
     font-size: 12px;
+    color: #bbb;
+    margin-top: 4px;
+    align-self: flex-end;
+}
+
+.user-info__avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    margin-bottom: 20%;
+}
+
+.user-info__main {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 130px;
+}
+
+.user-info__role {
+    font-size: 14px;
     color: #bbb;
     margin-top: 4px;
 }
 
-.user-info__avatar {
-    width: 95%;
-    height: 70%;
-    border-radius: 10%;
-}
-
-.user-info__main {
+.user-info__center {
+    position: inherit;
     display: flex;
     flex-direction: column;
-    margin: 10px;
+    align-items: flex-start;
+    margin-top: 30%;
 }
+
+.user-info__activity,
+.user-info__registration-date {
+    align-self: flex-start;
+}
+
+.bio-modal {
+    display: flex;
+    position: absolute;
+    background-color: rgba(196, 196, 196, 0.301);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    top: -100px;
+    left: 100%;
+    z-index: 1000;
+    max-width: 200px;
+    max-height: 100px;
+    border: 1px solid #000000;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.bio-modal-content p {
+    font-size: 12px;
+    color: #ffffff;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+

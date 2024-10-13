@@ -83,7 +83,7 @@ const Chat = () => {
 
       {/* Если выбран друг, рендерим компонент чата поверх панели */}
       {selectedFriend ? (
-        <ChatArea friend={selectedFriend} onClose={handleCloseChat} className="chat__area" />
+        <ChatArea friend={selectedFriend} onClose={handleCloseChat} currentUser={user} className="chat__area" />
       ) : (
         <FriendsPanel
           friends={friends}

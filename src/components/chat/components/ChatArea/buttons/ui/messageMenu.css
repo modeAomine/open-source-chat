@@ -1,0 +1,39 @@
+.edit__message__menu {
+  position: absolute;
+  background-color: #393838;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.edit__message__menu.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.edit__message__list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.edit__message__item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit__message__item:hover {
+  background-color: #4f4f4f;
+}
+
+.edit__message__icon {
+  margin-right: 8px;
+}

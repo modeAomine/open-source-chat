@@ -8,6 +8,8 @@ if (process.env.REACT_APP_ENV === 'debug') {
   url = 'api/';
 }
 
+// const socketUrl = "ws://127.0.0.1:8000/socket/my/chat";
+
 export const registerUser = async (userData) => {
   try {
     const response = await axios.post(url + '/auth/register', userData);
