@@ -51,7 +51,6 @@ const ChatArea = ({ friend, groupChat, onClose, currentUser }) => {
     useEffect(() => {
         const chat_id = friend ? friend.chat.chat_id : groupChat.group_chat_id;
         if (chat_id) {
-            // Загружаем сообщения
             const loadMessages = friend ? getChatMessages(chat_id) : getChatRoomMessages(groupChat.group_chat_id);
             loadMessages.then((loadedMessages) => {
                 loadedMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
@@ -118,7 +117,6 @@ const ChatArea = ({ friend, groupChat, onClose, currentUser }) => {
 
     return (
         <div className="chat__area">
-
             {/* Chat Header */}
             <div className="chat__header">
                 <button className="close-chat-button" onClick={onClose}>

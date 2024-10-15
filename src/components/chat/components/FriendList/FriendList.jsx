@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import SearchBar from '../SearchBar/SearchBar.jsx';
 import './friendList.css';
 import UserModal from './ui/UserModal.jsx';
+import MiniProfile from '../MiniProfile/MiniProfile.jsx';
 
-const FriendList = ({ channels, friends, onSelectFriend, onSelectGroupChat }) => {
+const FriendList = ({ channels, friends, onSelectFriend, onSelectGroupChat, user, handleOpenUserModal }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,7 +51,7 @@ const FriendList = ({ channels, friends, onSelectFriend, onSelectGroupChat }) =>
         <div className="friends">
           {filteredFriends.map((friend) => (
             <div key={friend.id} className="friend" onClick={() => onSelectFriend(friend)}>
-              <img src={friend.avatar || 'https://via.placeholder.com/50'} alt={friend.username} className="menu__avatar" />
+              <img src={friend.filename || 'https://via.placeholder.com/50'} alt={friend.username} className="menu__avatar" />
               <div className="friend-info">
                 <div className="name">{friend.username}</div>
                 <div className="last-message">{friend.lastMessage}</div>
@@ -69,8 +70,9 @@ const FriendList = ({ channels, friends, onSelectFriend, onSelectGroupChat }) =>
           ))}
         </div>
       )}
-
+    
       {isModalOpen && <UserModal user={selectedUser} onClose={handleCloseModal} />}
+      <MiniProfile user={user} onOpenSettings={handleOpenUserModal} />
     </div>
   );
 };

@@ -46,3 +46,19 @@
     height: 50px;
     border-radius: 50%;
 }
+
+.chat__header__icons {
+    flex-grow: 1;
+    margin-left: 10px;
+    position: absolute;
+    right: 0;
+}
+
+.avatar__container {
+    position: relative;
+}
+
+.container__content-left {
+    display: flex;
+    align-items: center;
+}

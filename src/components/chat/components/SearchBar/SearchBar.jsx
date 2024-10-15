@@ -31,7 +31,7 @@ const SearchBar = ({ setSearchResults }) => {
         <div className="search-container">
             <input
                 type="text"
-                placeholder="Поиск..."
+                placeholder="Найти друга"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"

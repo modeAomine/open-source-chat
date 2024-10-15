@@ -2,145 +2,125 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: linear-gradient(319deg, #40444b 0%, #2c2c2c 50%);
-  width: calc(85% - 150px);
+  width: calc(85% - 180px);
+  background-color: var(--friend-panel);
+  border-left: 1px solid var(--border-color);
 }
 
 .friends-panel__header {
   display: flex;
-  justify-content: space-around;
-  position: relative;
+  gap: 15px;
+  flex-direction: row;
   padding: 10px;
-  max-width: 100%;
-  margin: 10px 20px;
-  gap: 10px;
+  margin-top: 10px;
+  border-bottom: 1px solid;
 }
 
-.friends-panel__header button {
-  flex: 1;
-  background-color: transparent;
+.tab {
+  background: none;
   border: none;
-  color: #b9bbbe;
-  font-size: 14px;
-  padding: 10px;
+  color: var(--muted-font-color);
+  padding: 10px 15px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
-  position: relative;
+  font-size: 14px;
+  transition: color 0.2s ease;
+  font-weight: bold;
 }
 
-.friends-panel__header .active-tab-indicator {
+.tab:hover {
+  color: var(--font-color);
+}
+
+.active {
+  color: var(--font-color);
+  font-weight: bold;
+}
+
+.active-tab-indicator {
   position: absolute;
   bottom: 0;
-  height: 4px;
-  background-color: #959595;
-  transition: all 0.3s ease;
-}
-
-.friends-panel__header button:hover {
-  background-color: rgba(180, 180, 180, 0.2);
-  transform: scale(1.05);
-}
-
-.friends-panel__header button.active {
-  color: white;
-}
-
-.friends-panel__header .tab {
-  position: relative;
-  display: inline-block;
-  border-radius: 15px;
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: left 0.3s ease, width 0.3s ease;
 }
 
 .friends-panel__search {
-  margin: 10px 20px;
   padding: 10px;
-  background-color: #40444b;
+  background-color: var(--secondary-bg-color);
   border: none;
-  border-radius: 5px;
-  width: 60%;
-  color: white;
-  transition: background-color 0.2s;
+  color: var(--font-color);
+  font-size: 14px;
+  width: 70%;
+  margin-left: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 
-.friends-panel__search:focus {
-  background-color: #555;
+.friends-panel__search::placeholder {
+  color: var(--muted-font-color);
+}
+
+.friends-panel__content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  flex: 1 1;
+  overflow-y: auto;
+  width: 71.5%;
 }
 
 .friends-panel__list {
-  flex: 2;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .friend-item {
   display: flex;
   align-items: center;
   padding: 10px;
-  justify-content: space-between;
-  transition: background-color 0.2s;
-  border-radius: 50px;
-}
-
-.friend-item:last-child {
-  border-bottom: none;
-  color: #99a1a1;
-  max-width: 60%;
+  border-radius: 4px;
+  background-color: var(--message-bg-color);
+  transition: background-color 0.2s ease;
   cursor: pointer;
 }
 
 .friend-item:hover {
-  background-color: rgba(184, 184, 184, 0.1);
-  border-radius: 50px;
+  background-color: #424751;
 }
 
 .friend-avatar {
-  width: 75px;
-  height: 75px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
 .friend-name {
-  color: white;
-  font-size: 14px;
-  flex-grow: 1;
-}
-
-.friends-panel__activity {
-  flex-grow: 1;
-  background-color: #36393f;
-  padding: 10px;
-  border-radius: 8px;
-  overflow-y: auto;
-}
-
-.friend-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.friend-action-icon {
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.friend-action-icon:hover {
-  color: #c4c4c4;
-}
-
-.friend-action-icon:hover {
-  color: #b9bbbe;
-}
-
-.friends-panel__activity h3 {
-  color: white;
   font-size: 16px;
-  margin-bottom: 10px;
+  color: var(--font-color);
 }
 
-.friends-panel__content {
+.text-friends {
+  cursor: default;
   display: flex;
-  flex: 1;
-  overflow: hidden;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  color: white;
+  font-weight: bold;
+  margin-left: 10px;
+  padding-right: 20px;
+  border-right: 1px solid black;
+}
+
+.add__new__friend {
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: rgba(62, 167, 97, 0.795);
+  font-weight: bold;
+  font-size: 14px;
 }

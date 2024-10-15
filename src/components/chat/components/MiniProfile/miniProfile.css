@@ -1,163 +1,71 @@
 .mini-profile {
-    position: absolute;
-    bottom: 0px;
+    padding: 12px;
+    background-color: var(--mini-profile-color);
+    border-top: 1px solid var(--border-color);
     display: flex;
+    gap: 5px;
+    flex-direction: row;
     align-items: center;
-    padding: 10px;
-    background-color: #333;
-    border-radius: 10px;
-    border: 1px solid #444;
-    width: 15%;
-    margin-left: 7%;
-    bottom: 1rem;
-    transition: all 0.3s ease;
+    position: absolute;
+    bottom: 20px;
+    width: 285px;
+    border-radius: 15px;
+    margin-left: 40px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mini-profile__avatar {
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    margin-bottom: 8px;
 }
 
 .mini-profile__avatar img {
-    width: 55px;
-    height: 55px;
     border-radius: 50%;
-    cursor: pointer;
-}
-
-.mini-profile__info {
-    margin-left: 10px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.mini-profile__username {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.mini-profile__status {
-    font-size: 12px;
-    color: #bbb;
-    margin-top: 4px;
-}
-
-.mini-profile__icons {
-    display: flex;
-    gap: 20px;
-}
-
-.mini-profile__icon {
-    color: #fff;
-    font-size: 25px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-    max-width: 30px;
-    gap: 30px;
-}
-
-.mini-profile__icon:hover {
-    color: #ddd;
 }
 
 .user-info-mini {
+    display: none;
+    background-color: var(--tertiary-bg-color);
+    border-radius: 5px;
+    padding: 8px;
     position: absolute;
-    bottom: 80px;
-    padding: 10px;
-    border-radius: 8px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    display: flex;
-    flex-direction: row;
-    color: white;
-    max-width: 280px;
-    left: 0;
+    z-index: 10;
 }
 
 .user-info-mini.visible {
     display: flex;
-    opacity: 1;
-    transform: translateY(0);
-    flex-direction: row;
-    max-width: 285px;
-    background-image: url('https://sun9-40.userapi.com/impg/jFBw3znqd-yrzoaUHeAcf6XsewoTQelcXNCqjw/eYl44NuZNfI.jpg?size=305x150&quality=95&sign=aa4db166eec8b6953e1bd83a3c7caa2b&type=album');
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
 }
 
-.user-info__name {
+.mini-profile__info {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mini-profile__username {
     font-weight: bold;
-    align-self: flex-end;
+    color: var(--text-color);
 }
 
-.user-info__email {
+.mini-profile__status {
     font-size: 12px;
-    color: #bbb;
-    margin-top: 4px;
-    align-self: flex-end;
+    color: var(--subtle-text-color);
 }
 
-.user-info__bio {
-    cursor: default;
-    font-size: 12px;
-    color: #bbb;
-    margin-top: 4px;
-    align-self: flex-end;
-}
-
-.user-info__avatar {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    margin-bottom: 20%;
-}
-
-.user-info__main {
-    gap: 10px;
+.mini-profile__icons {
+    margin-top: 8px;
     display: flex;
-    flex-direction: column;
-    margin-left: 130px;
+    justify-content: center;
+    gap: 8px;
 }
 
-.user-info__role {
-    font-size: 14px;
-    color: #bbb;
-    margin-top: 4px;
+.mini-profile__icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
-
-.user-info__center {
-    position: inherit;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 30%;
-}
-
-.user-info__activity,
-.user-info__registration-date {
-    align-self: flex-start;
-}
-
-.bio-modal {
-    display: flex;
-    position: absolute;
-    background-color: rgba(196, 196, 196, 0.301);
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 5px;
-    top: -100px;
-    left: 100%;
-    z-index: 1000;
-    max-width: 200px;
-    max-height: 100px;
-    border: 1px solid #000000;
-    overflow: hidden;
-    transition: opacity 0.3s ease;
-}
-
-.bio-modal-content p {
-    font-size: 12px;
-    color: #ffffff;
-    word-wrap: break-word;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
-}
-

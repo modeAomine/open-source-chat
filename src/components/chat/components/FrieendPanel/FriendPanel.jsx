@@ -1,49 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './friendPanel.css';
 import ActivityFeed from './ui/Activity/ActivityFeed.jsx';
 import UserModal from '../FriendList/ui/UserModal.jsx';
+import FriendsPanelHeader from './ui/FriendsPanelHeader/FriendsPanelHeader.jsx';
 
 const activities = [
     { username: 'Иван', action: 'отправил сообщение', avatar: 'https://via.placeholder.com/50' },
     { username: 'Мария', action: 'вошла в сеть', avatar: 'https://via.placeholder.com/50' },
 ];
 
-const TABS = ['all', 'online', 'offline', 'pending', 'blocked', 'submitted_applications'];
-
 const FriendsPanel = ({ friends, fetchFriends, onOpenUserModal }) => {
     const [activeTab, setActiveTab] = useState(() => localStorage.getItem('activeTab') || 'all');
     const [searchTerm, setSearchTerm] = useState('');
     const [indicatorStyles, setIndicatorStyles] = useState({});
-    const tabsRef = useRef([]);
     const [selectedUser, setSelectedUser] = useState(null);
-
-    const handleTabChange = (tab) => {
-        setActiveTab(tab);
-        localStorage.setItem('activeTab', tab);
-    };
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
-    };
-
-    useEffect(() => {
-        const activeTabIndex = TABS.indexOf(activeTab);
-        if (tabsRef.current[activeTabIndex]) {
-            const tabElement = tabsRef.current[activeTabIndex];
-            const { offsetLeft, clientWidth } = tabElement;
-            setIndicatorStyles({
-                left: `${offsetLeft}px`,
-                width: `${clientWidth}px`,
-            });
-        }
-    }, [activeTab]);
-
-    const handleUserClick = (user) => {
-        setSelectedUser(user);
-    };
-
-    const handleCloseModal = () => {
-        setSelectedUser(null);
     };
 
     const filteredFriends = friends.filter(friend => {
@@ -58,24 +31,12 @@ const FriendsPanel = ({ friends, fetchFriends, onOpenUserModal }) => {
 
     return (
         <div className="friends-panel">
-            <div className="friends-panel__header">
-                {TABS.map((tab, index) => (
-                    <button
-                        key={tab}
-                        className={activeTab === tab ? 'active tab' : 'tab'}
-                        onClick={() => handleTabChange(tab)}
-                        ref={(el) => (tabsRef.current[index] = el)}
-                    >
-                        {tab === 'all' && 'Все друзья'}
-                        {tab === 'online' && 'В сети'}
-                        {tab === 'offline' && 'Не в сети'}
-                        {tab === 'pending' && 'Ожидают'}
-                        {tab === 'blocked' && 'Заблокированные пользователи'}
-                        {tab === 'submitted_applications' && 'Отправленные заявки'}
-                    </button>
-                ))}
-                <div className="active-tab-indicator" style={indicatorStyles}></div>
-            </div>
+            <FriendsPanelHeader
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                indicatorStyles={indicatorStyles}
+                setIndicatorStyles={setIndicatorStyles}
+            />
 
             <input
                 type="text"
@@ -88,7 +49,7 @@ const FriendsPanel = ({ friends, fetchFriends, onOpenUserModal }) => {
             <div className="friends-panel__content">
                 <div className="friends-panel__list">
                     {filteredFriends.map((friend) => (
-                        <div key={friend.id} className="friend-item" onClick={() => handleUserClick(friend)}>
+                        <div key={friend.id} className="friend-item" onClick={() => setSelectedUser(friend)}>
                             <img
                                 src={friend.filename || 'https://via.placeholder.com/50'}
                                 alt={friend.username}
@@ -105,7 +66,7 @@ const FriendsPanel = ({ friends, fetchFriends, onOpenUserModal }) => {
             {selectedUser && (
                 <UserModal 
                     user={selectedUser} 
-                    onClose={handleCloseModal} 
+                    onClose={() => setSelectedUser(null)} 
                     fetchFriends={fetchFriends} 
                     onSelectFriend={onOpenUserModal} 
                 />

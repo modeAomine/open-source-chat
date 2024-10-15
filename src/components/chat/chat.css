@@ -1,37 +1,45 @@
+:root {
+	--primary-bg-color: #2e3136;
+	--secondary-bg-color: #202225;
+	--accent-color: #5865f2;
+	--message-bg-color: #40444b;
+	--font-color: #ffffff;
+	--muted-font-color: #72767d;
+	--border-color: rgba(255, 255, 255, 0.1);
+	--mini-profile-color: #34373a;
+	--friend-panel: #32363d;
+	--friend-list: #2e3137;
+}
+
 .chat {
-  display: flex;
-  height: 100%;
-  background-color: #353434;
-  color: #ffffff;
-}
-
-.menu-button {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  color: #a0aec0;
-  cursor: pointer;
-}
-
-.menu-button:hover {
-  color: #ffffff;
-}
-
-.menu-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.menu__avatar {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  margin-right: 1rem;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  max-width: 280px;
-}
+	display: flex;
+	height: 100vh;
+	background-color: var(--primary-bg-color);
+  }
+  
+  .group-panel {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 80px;
+	background-color: var(--secondary-bg-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px 0;
+	border-right: 1px solid var(--border-color);
+	overflow-y: auto;
+  }
+  
+  .friend-list {
+	margin-left: 80px;
+	flex: 1;
+	background-color: var(--friend-list);
+	padding: 10px;
+	overflow-y: auto;
+	border-right: 1px solid var(--border-color);
+	max-width: 20%;
+	color: white;
+  }
+  

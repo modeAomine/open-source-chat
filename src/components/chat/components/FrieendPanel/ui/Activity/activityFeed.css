@@ -1,42 +1,40 @@
-.activity-feed {
-    padding: 15px;
-    background: linear-gradient(135deg, #424242 0%, #2c2c2c 100%);
-    color: #e0e0e0;
-    border-radius: 10px;
-    width: calc(30% - 90px);
-    height: calc(90% - 200px);
-    margin: 10px 20px;
-    position: absolute;
+.activity-feed-container {
+    position: fixed;
+    top: 7%;
+    background-color: var(--friend-panel);
     right: 0;
-
-    border: 2px solid #616161;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+    border-left: 1px solid;
+    height: 100%;
+    width: 22%;
 }
 
-
-.activity-feed:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.9);
-}
-
-.activity-feed h3 {
-    margin-top: 0;
-    font-size: 1.5em;
-    color: #b8b8b8;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.activity-feed ul {
-    list-style-type: none;
-    padding-left: 0;
+.activity-feed {
+    margin-left: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
 }
 
 .activity-item {
     display: flex;
+    background-color: #2d3037;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: default;
+    width: 350px;
+    height: 60px;
+}
+
+.activity-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .activity-avatar {
@@ -46,11 +44,67 @@
     margin-right: 10px;
 }
 
-.activity__user__info {
+.toggle-button {
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    transform: translateY(-50%);
+    background-color: var(--accent-color);
+    border: none;
+    color: var(--font-color);
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+.toggle-arrow {
+    font-size: 20px;
+    transform: rotate(180deg);
+}
+
+.activity-feed-container.collapsed .toggle-arrow {
+    transform: rotate(0deg);
+}
+
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: var(--font-color);
+    transition: color 0.3s ease;
+}
+
+.close-icon:hover {
+    color: var(--accent-color-hover);
+}
+
+.activity__line {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.activity__filed {
+    margin-top: 20px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    gap: 10px;
     display: flex;
     flex-direction: column;
 }
 
-.activity__user__info span {
-    color: #b0b0b0;
+.activity__user__info {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
 }

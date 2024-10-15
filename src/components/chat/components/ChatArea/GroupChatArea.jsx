@@ -118,7 +118,11 @@ const GroupChatArea = ({ groupChat, onClose, currentUser }) => {
                 <button className="close-chat-button" onClick={onClose}>
                     <FaChevronLeft />
                 </button>
-                <div className="name">{groupChat.name}</div>
+                <div className='container__content-left'>
+                    <div className='avatar__container'>
+                        <img src={groupChat.filename || 'https://via.placeholder.com/50'} alt={groupChat?.group_chat_id} className="avatar__open_chat" />
+                    </div>
+                </div>
                 <div className="chat__header__icons">
                     <button className="chat__header__icon">
                         <FaSearch />

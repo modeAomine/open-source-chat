@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import FriendList from './components/FriendList/FriendList.jsx';
 import ChatArea from './components/ChatArea/ChatArea.jsx';
 import GroupChatArea from './components/ChatArea/GroupChatArea.jsx';
-import MiniProfile from './components/MiniProfile/MiniProfile.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LanguageSettings from '../chat/components/LaunguageSettings/LanguageSettings.jsx';
@@ -101,9 +100,12 @@ const Chat = () => {
     <div className="chat">
       <FriendList
         friends={friends}
+        className="friend-list"
         onSelectFriend={handleFriendSelect}
         onOpenUserModal={handleOpenUserModal}
         channels={channel}
+        user={user}
+        onOpenSettings={handleOpenProfileModal}
         onSelectGroupChat={handleGroupChatSelect}
       />
 
@@ -124,8 +126,11 @@ const Chat = () => {
         <LanguageSettings onClose={() => setIsLanguageSettingsOpen(false)} />
       )}
 
-      <Group groups={channel} onSelectGroup={handleGroupChatSelect} />
-      <MiniProfile user={user} onOpenSettings={handleOpenProfileModal} />
+      <Group 
+      groups={channel} 
+      onSelectGroup={handleGroupChatSelect} 
+      className="group-panel"
+      />
       {isUserModalOpen && (
         <UserModal
           user={selectedUser}
