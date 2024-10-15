@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './ui/chatArea.css';
 import { FaPaperPlane, FaPaperclip, FaChevronLeft, FaSearch, FaPhone, FaEllipsisV } from 'react-icons/fa';
 import VoiceVideoButton from './buttons/VoiceOrVideoButton.jsx';
-import { chat, getChatMessages, chat_rooms, getChatRoomMessages } from '../../../service/api.ts'; // Импортируем новый метод
+import { chat, getChatMessages, chat_rooms, getChatRoomMessages } from '../../../service/api.ts';
 import MessageMenu from './buttons/MessageMenu.jsx';
 
 const ChatArea = ({ friend, groupChat, onClose, currentUser }) => {
@@ -19,7 +19,6 @@ const ChatArea = ({ friend, groupChat, onClose, currentUser }) => {
     };
 
     useEffect(() => {
-        // Устанавливаем WebSocket соединение
         if (friend || groupChat) {
             const ws = friend ? chat(friend.friend_id) : chat_rooms(groupChat.group_chat_id);
             setSocket(ws);

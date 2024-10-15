@@ -12,7 +12,7 @@ import 'react-phone-number-input/style.css';
 import { useAuth } from '../../../middleware/AuthContext';
 
 const ProfileModal = ({ onClose }) => {
-    const { user, setUser } = useAuth(); // Извлечение user и setUser
+    const { user, setUser } = useAuth();
     const { t } = useTranslation();
     const [avatarFile, setAvatarFile] = useState(null);
     const [isEditFieldModalOpen, setEditFieldModalOpen] = useState(false);
@@ -26,13 +26,13 @@ const ProfileModal = ({ onClose }) => {
                    currentField === 'email' ? 'email' : '');
 
     useEffect(() => {
-        let isMounted = true; // флаг для предотвращения утечек памяти
+        let isMounted = true;
         const fetchAvatar = async () => {
             try {
                 const accessToken = localStorage.getItem('access_token');
                 if (accessToken && user?.id) {
                     const urlAvatar = await get_user_avatar(user.id, accessToken);
-                    if (isMounted) setAvatarFile(urlAvatar); // установка состояния только если компонент смонтирован
+                    if (isMounted) setAvatarFile(urlAvatar);
                 }
             } catch (error) {
                 console.error('Ошибка при получении аватарки пользователя: ', error.message);
@@ -42,7 +42,7 @@ const ProfileModal = ({ onClose }) => {
         fetchAvatar();
 
         return () => {
-            isMounted = false; // установка флага в false при размонтировании
+            isMounted = false;
         };
     }, [user]);
 
