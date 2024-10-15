@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaMicrophone, FaVideo } from 'react-icons/fa';
-import './voiceOrVideo.css';
+import './ui/voiceOrVideo.css';
 
 const VoiceVideoButton = ({ onHold, onRelease }) => {
     const [isVideoMode, setIsVideoMode] = useState(false);

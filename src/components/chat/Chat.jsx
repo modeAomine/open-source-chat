@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import FriendList from './components/FriendList/FriendList.jsx';
 import ChatArea from './components/ChatArea/ChatArea.jsx';
+import GroupChatArea from './components/ChatArea/GroupChatArea.jsx';
 import MiniProfile from './components/MiniProfile/MiniProfile.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,20 +9,16 @@ import LanguageSettings from '../chat/components/LaunguageSettings/LanguageSetti
 import './chat.css';
 import Group from './components/GroupBar/Group.jsx';
 import FriendsPanel from './components/FrieendPanel/FriendPanel.jsx';
-import { get_status_friend } from '../service/api.jsx';
+import { get_status_friend, get_user_channel } from '../service/api.jsx';
 import UserModal from './components/FriendList/ui/UserModal.jsx';
 import ProfileModal from './components/ProfileModel/ProfileModal.jsx';
 import { useAuth } from '../middleware/AuthContext.jsx';
 
-const groups = [
-  { id: 1, name: 'Group 1', avatar: 'https://via.placeholder.com/50' },
-  { id: 2, name: 'Group 2', avatar: 'https://via.placeholder.com/50' },
-  { id: 3, name: 'Group 3', avatar: 'https://via.placeholder.com/50' },
-];
-
 const Chat = () => {
   const [friends, setFriends] = useState([]);
+  const [channel, setChannel] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState(null);
+  const [selectedGroupChat, setSelectedGroupChat] = useState(null);
   const [isLanguageSettingsOpen, setIsLanguageSettingsOpen] = useState(false);
   const { user, fetchUser } = useAuth();
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -37,6 +34,21 @@ const Chat = () => {
     }
   };
 
+  const fetchChannel = async () => {
+    try {
+      const channelList = await get_user_channel();
+      if (Array.isArray(channelList)) {
+        setChannel(channelList);
+      } else {
+        console.error('Полученные данные не являются массивом:', channelList);
+        setChannel([]);
+      }
+    } catch (error) {
+      console.error(error.message);
+      setChannel([]);
+    }
+  };
+
   const fetchUsers = useCallback(async () => {
     const accessToken = localStorage.getItem('access_token');
     const refreshToken = localStorage.getItem('refresh_token');
@@ -48,14 +60,22 @@ const Chat = () => {
   useEffect(() => {
     fetchFriends();
     fetchUsers();
+    fetchChannel();
   }, [fetchUsers]);
 
   const handleFriendSelect = (friend) => {
     setSelectedFriend(friend);
+    setSelectedGroupChat(null);
+  };
+
+  const handleGroupChatSelect = (groupChat) => {
+    setSelectedGroupChat(groupChat);
+    setSelectedFriend(null);
   };
 
   const handleCloseChat = () => {
     setSelectedFriend(null);
+    setSelectedGroupChat(null);
   };
 
   const handleOpenUserModal = (user) => {
@@ -79,26 +99,32 @@ const Chat = () => {
 
   return (
     <div className="chat">
-      <FriendList friends={friends} onSelectFriend={handleFriendSelect} onOpenUserModal={handleOpenUserModal} />
+      <FriendList
+        friends={friends}
+        onSelectFriend={handleFriendSelect}
+        onOpenUserModal={handleOpenUserModal}
+        channels={channel}
+        onSelectGroupChat={handleGroupChatSelect}
+      />
 
-      {/* Если выбран друг, рендерим компонент чата поверх панели */}
       {selectedFriend ? (
         <ChatArea friend={selectedFriend} onClose={handleCloseChat} currentUser={user} className="chat__area" />
+      ) : selectedGroupChat ? (
+        <GroupChatArea groupChat={selectedGroupChat} onClose={handleCloseChat} currentUser={user} className="chat__area" />
       ) : (
-        <FriendsPanel
-          friends={friends}
-          onClose={handleCloseChat}
-          fetchFriends={fetchFriends}
-          className="friend-panel"
-          onOpenUserModal={handleOpenUserModal}
-        />
+      <FriendsPanel
+        friends={friends}
+        onClose={handleCloseChat}
+        className="friend-panel"
+        onOpenUserModal={handleOpenUserModal}
+      />
       )}
 
       {isLanguageSettingsOpen && (
         <LanguageSettings onClose={() => setIsLanguageSettingsOpen(false)} />
       )}
 
-      <Group groups={groups} />
+      <Group groups={channel} onSelectGroup={handleGroupChatSelect} />
       <MiniProfile user={user} onOpenSettings={handleOpenProfileModal} />
       {isUserModalOpen && (
         <UserModal

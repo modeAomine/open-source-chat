@@ -3,7 +3,7 @@ import SearchBar from '../SearchBar/SearchBar.jsx';
 import './friendList.css';
 import UserModal from './ui/UserModal.jsx';
 
-const FriendList = ({ friends, onSelectFriend }) => {
+const FriendList = ({ channels, friends, onSelectFriend, onSelectGroupChat }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +44,7 @@ const FriendList = ({ friends, onSelectFriend }) => {
                 <div className="name">{user.username}</div>
               </div>
             </div>
-          ))}
+          ))};
         </div>
       ) : (
         <div className="friends">
@@ -56,6 +56,15 @@ const FriendList = ({ friends, onSelectFriend }) => {
                 <div className="last-message">{friend.lastMessage}</div>
               </div>
               <div className="time">{friend.time}</div>
+            </div>
+          ))}
+
+          {channels.map((channel) => (
+            <div key={channel.id} className="friend" onClick={() => onSelectGroupChat(channel)}>
+              <img src={channel.avatar || 'https://via.placeholder.com/50'} alt={channel.group_name} className="menu__avatar" />
+              <div className="channel-info">
+                <div className="channel-name">{channel.group_name} <span className="channel-label">Групповой чат</span></div>
+              </div>
             </div>
           ))}
         </div>

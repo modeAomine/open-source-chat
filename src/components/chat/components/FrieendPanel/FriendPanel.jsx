@@ -40,7 +40,6 @@ const FriendsPanel = ({ friends, fetchFriends, onOpenUserModal }) => {
 
     const handleUserClick = (user) => {
         setSelectedUser(user);
-        onOpenUserModal(user);
     };
 
     const handleCloseModal = () => {
@@ -51,9 +50,9 @@ const FriendsPanel = ({ friends, fetchFriends, onOpenUserModal }) => {
         if (activeTab === 'all') return friend.status === 'confirmed' && friend.status !== 'blocked';
         if (activeTab === 'online') return friend.isOnline && friend.status === 'confirmed' && friend.status !== 'blocked';
         if (activeTab === 'offline') return !friend.isOnline && friend.status === 'confirmed' && friend.status !== 'blocked';
-        if (activeTab === 'pending') return friend.status === 'pending';  // входящие заявки
+        if (activeTab === 'pending') return friend.status === 'pending';
         if (activeTab === 'blocked') return friend.status === 'blocked';
-        if (activeTab === 'submitted_applications') return friend.status === 'submitted';  // исходящие заявки
+        if (activeTab === 'submitted_applications') return friend.status === 'submitted';
         return false;
     });
 

@@ -30,14 +30,13 @@ export const AuthProvider = ({ children }) => {
         setIsFetchingUser(true);
         try {
             const userData = await current_user(accessToken);
-            console.log(userData)
             let avatar = null;
             try {
-                avatar = await get_user_avatar(userData.id, accessToken)
-            } catch(avatarError) {
-                console.log('Ошибка получение аватарки пользователя: ', avatarError)
+                avatar = await get_user_avatar(userData.id, accessToken);
+            } catch (avatarError) {
+                console.log('Ошибка получения аватарки пользователя: ', avatarError);
             }
-            setUser({...userData, avatar});
+            setUser({ ...userData, avatar });
             setIsAuthenticated(true);
             navigate('/chat');
         } catch (error) {
@@ -61,10 +60,8 @@ export const AuthProvider = ({ children }) => {
         }
 
         try {
-            console.log('Обновление токена...');
             const newTokens = await refresh_token(refreshToken);
             if (newTokens?.access_token) {
-                console.log('Токен обновлен:', newTokens.access_token);
                 localStorage.setItem('access_token', newTokens.access_token);
                 fetchUser(newTokens.access_token);
             } else {

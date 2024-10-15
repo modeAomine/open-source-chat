@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { FaReply, FaEdit, FaThumbtack, FaCopy, FaShare, FaTrashAlt } from 'react-icons/fa';
-import './messageMenu.css';
+import './ui/messageMenu.css';
 
 const MessageMenu = ({ x, y, onClose, show }) => {
     const menuRef = useRef();

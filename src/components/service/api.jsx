@@ -159,6 +159,20 @@ export const get_status_friend = async () => {
   }
 }
 
+export const get_user_channel = async () => {
+  try {
+    const accessToken = localStorage.getItem('access_token')
+    const response = await axios.get(`${url}/user/get_chat_rooms`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+    return response.data;
+  } catch (errorGetUserGroups) {
+    throw new Error('Ошибка получения групп пользователя: ' + errorGetUserGroups.response.data.detail)
+  }
+}
+
 
 export const search_user = async (searchTerm) => {
   return new Promise((resolve, reject) => {

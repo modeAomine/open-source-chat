@@ -1,7 +1,5 @@
 .friend-list {
   padding: 1rem;
-  border-right: 1px solid #2d3748;
-  background-color: #464646;
   color: #ffffff;
   overflow-y: auto;
   width: calc(100% - 75px);
@@ -40,12 +38,12 @@
   border-radius: 0.5rem;
   cursor: pointer;
   margin: 10px;
-  transition: color 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .search-result:hover,
 .friend:hover {
-  background-color: #414141;
+  background-color: rgba(172, 172, 172, 0.1); /* Полупрозрачный оранжевый фон при наведении */
 }
 
 .avatar,
@@ -54,6 +52,7 @@
   height: 3rem;
   border-radius: 50%;
   margin-right: 1rem;
+  border: 2px solid #ffab40;
 }
 
 .friend-info,
@@ -65,6 +64,7 @@
 .result-username {
   font-weight: 600;
   margin-bottom: 0.25rem;
+  color: #ffffff;
 }
 
 .last-message {
@@ -82,8 +82,27 @@
   border: none;
   color: #a0aec0;
   cursor: pointer;
+  
 }
 
 .menu-button:hover {
   color: #ffffff;
+}
+
+.channel-label {
+  font-size: 10px;
+  color: #888;
+}
+
+.channel-info {
+  display: flex;
+}
+
+.channel-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  gap: 6rem;
 }

@@ -9,51 +9,49 @@ import 'react-toastify/dist/ReactToastify.css';
 import Avatar from '../../../../static/default.svg';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { useAuth } from '../../../middleware/AuthContext';
 
-const ProfileModal = ({ user, setUser, onClose }) => {
+const ProfileModal = ({ onClose }) => {
+    const { user, setUser } = useAuth(); // Извлечение user и setUser
     const { t } = useTranslation();
     const [avatarFile, setAvatarFile] = useState(null);
     const [isEditFieldModalOpen, setEditFieldModalOpen] = useState(false);
     const [currentField, setCurrentField] = useState('');
     const [currentValue, setCurrentValue] = useState('');
 
-    let fieldName;
-    if (currentField === 'username') {
-        fieldName = t('Имя пользователя');
-    } else if (currentField === 'phone') {
-        fieldName = t('Номер телефона');
-    } else if (currentField === 'name') {
-        fieldName = t('Имя');
-    } else if (currentField === 'bio') {
-        fieldName = t('О себе');
-    } else if (currentField === 'email') {
-        fieldName = t('email');
-    }
+    let fieldName = t(currentField === 'username' ? 'Имя пользователя' : 
+                   currentField === 'phone' ? 'Номер телефона' : 
+                   currentField === 'name' ? 'Имя' : 
+                   currentField === 'bio' ? 'О себе' : 
+                   currentField === 'email' ? 'email' : '');
 
     useEffect(() => {
+        let isMounted = true; // флаг для предотвращения утечек памяти
         const fetchAvatar = async () => {
             try {
                 const accessToken = localStorage.getItem('access_token');
-                if (accessToken && user.id) {
+                if (accessToken && user?.id) {
                     const urlAvatar = await get_user_avatar(user.id, accessToken);
-                    setAvatarFile(urlAvatar);
+                    if (isMounted) setAvatarFile(urlAvatar); // установка состояния только если компонент смонтирован
                 }
             } catch (error) {
                 console.error('Ошибка при получении аватарки пользователя: ', error.message);
             }
         };
 
-        if (user.id) {
-            fetchAvatar();
-        }
-    }, [user.id]);
+        fetchAvatar();
+
+        return () => {
+            isMounted = false; // установка флага в false при размонтировании
+        };
+    }, [user]);
 
     const handleAvatarChange = async (event) => {
         const file = event.target.files[0];
         const accessToken = localStorage.getItem('access_token');
         if (file) {
             try {
-                await user_avatar(file, accessToken); 
+                await user_avatar(file, accessToken);
                 const newAvatarUrl = URL.createObjectURL(file);
                 setAvatarFile(newAvatarUrl);
                 setUser((prevUser) => ({
@@ -104,8 +102,7 @@ const ProfileModal = ({ user, setUser, onClose }) => {
                 [currentField]: newValue,
             }));
             setEditFieldModalOpen(false);
-            const successFieldUpd = t('success_field_upd');
-            toast.success(`${fieldName} ${successFieldUpd}`, {
+            toast.success(`${fieldName} ${t('success_field_upd')}`, {
                 position: 'top-right',
                 autoClose: 3000,
             });
