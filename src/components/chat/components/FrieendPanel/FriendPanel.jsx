@@ -3,6 +3,8 @@ import './friendPanel.css';
 import ActivityFeed from './ui/Activity/ActivityFeed.jsx';
 import UserModal from '../FriendList/ui/UserModal.jsx';
 import FriendsPanelHeader from './ui/FriendsPanelHeader/FriendsPanelHeader.jsx';
+import { TbMessage } from "react-icons/tb";
+import { FaBars } from "react-icons/fa";
 
 const activities = [
     { username: 'Иван', action: 'отправил сообщение', avatar: 'https://via.placeholder.com/50' },
@@ -55,20 +57,29 @@ const FriendsPanel = ({ friends, fetchFriends, onOpenUserModal }) => {
                                 alt={friend.username}
                                 className="friend-avatar"
                             />
+                            <div className="svg__info__friend">
+                                <div className="class__icon__flex-message">
+                                    <TbMessage />
+                                </div>
+                                <div className="class__icon__flex-bar">
+                                    <FaBars />
+                                </div>
+                            </div>
                             <span className="friend-name">{friend.username}</span>
                         </div>
                     ))}
                 </div>
 
                 <ActivityFeed activities={activities} />
+                <div className='friend-panel__zadnic'></div>
             </div>
 
             {selectedUser && (
-                <UserModal 
-                    user={selectedUser} 
-                    onClose={() => setSelectedUser(null)} 
-                    fetchFriends={fetchFriends} 
-                    onSelectFriend={onOpenUserModal} 
+                <UserModal
+                    user={selectedUser}
+                    onClose={() => setSelectedUser(null)}
+                    fetchFriends={fetchFriends}
+                    onSelectFriend={onOpenUserModal}
                 />
             )}
         </div>

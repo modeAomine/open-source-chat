@@ -96,55 +96,63 @@ const Chat = () => {
     setIsProfileModalOpen(false);
   };
 
-  return (
-    <div className="chat">
-      <FriendList
-        friends={friends}
-        className="friend-list"
-        onSelectFriend={handleFriendSelect}
-        onOpenUserModal={handleOpenUserModal}
-        channels={channel}
-        user={user}
-        onOpenSettings={handleOpenProfileModal}
-        onSelectGroupChat={handleGroupChatSelect}
-      />
+  const NoContextMenuComponent = () => {
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+    };
 
-      {selectedFriend ? (
-        <ChatArea friend={selectedFriend} onClose={handleCloseChat} currentUser={user} className="chat__area" />
-      ) : selectedGroupChat ? (
-        <GroupChatArea groupChat={selectedGroupChat} onClose={handleCloseChat} currentUser={user} className="chat__area" />
-      ) : (
-      <FriendsPanel
-        friends={friends}
-        onClose={handleCloseChat}
-        className="friend-panel"
-        onOpenUserModal={handleOpenUserModal}
-      />
-      )}
-
-      {isLanguageSettingsOpen && (
-        <LanguageSettings onClose={() => setIsLanguageSettingsOpen(false)} />
-      )}
-
-      <Group 
-      groups={channel} 
-      onSelectGroup={handleGroupChatSelect} 
-      className="group-panel"
-      />
-      {isUserModalOpen && (
-        <UserModal
-          user={selectedUser}
-          onClose={handleCloseUserModal}
-          fetchFriends={fetchFriends}
+    return (
+      <div className="chat" onContextMenu={handleContextMenu}>
+        <FriendList
+          friends={friends}
+          className="friend-list"
           onSelectFriend={handleFriendSelect}
+          onOpenUserModal={handleOpenUserModal}
+          channels={channel}
+          user={user}
+          onOpenSettings={handleOpenProfileModal}
+          onSelectGroupChat={handleGroupChatSelect}
         />
-      )}
-      {isProfileModalOpen && (
-        <ProfileModal user={selectedUser} onClose={handleCloseProfileModal} />
-      )}
-      <ToastContainer position="top-right" autoClose={3000} />
-    </div>
-  );
+
+        {selectedFriend ? (
+          <ChatArea friend={selectedFriend} onClose={handleCloseChat} currentUser={user} className="chat__area" />
+        ) : selectedGroupChat ? (
+          <GroupChatArea groupChat={selectedGroupChat} onClose={handleCloseChat} currentUser={user} className="chat__area" />
+        ) : (
+          <FriendsPanel
+            friends={friends}
+            onClose={handleCloseChat}
+            className="friend-panel"
+            onOpenUserModal={handleOpenUserModal}
+          />
+        )}
+
+        {isLanguageSettingsOpen && (
+          <LanguageSettings onClose={() => setIsLanguageSettingsOpen(false)} />
+        )}
+
+        <Group
+          groups={channel}
+          onSelectGroup={handleGroupChatSelect}
+          className="group-panel"
+        />
+        {isUserModalOpen && (
+          <UserModal
+            user={selectedUser}
+            onClose={handleCloseUserModal}
+            fetchFriends={fetchFriends}
+            onSelectFriend={handleFriendSelect}
+          />
+        )}
+        {isProfileModalOpen && (
+          <ProfileModal user={selectedUser} onClose={handleCloseProfileModal} />
+        )}
+        <ToastContainer position="top-right" autoClose={3000} />
+      </div>
+    );
+  };
+
+  return <NoContextMenuComponent />;
 };
 
 export default Chat;

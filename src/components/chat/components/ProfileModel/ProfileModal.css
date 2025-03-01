@@ -1,0 +1,161 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #202225;
+    border-radius: 8px;
+    padding: 20px;
+    height: 750px;
+    width: 600px;
+    max-width: 90%;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    color: #dcddde;
+    font-family: "Arial", sans-serif;
+    text-align: left;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.avatar-label {
+    cursor: pointer;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.avatar {
+    height: 100px;
+    width: 100px;
+    margin-top: 100px;
+    margin-right: 400px;
+    border-radius: 50%;
+    border: 4px solid #5865f2;
+    object-fit: cover;
+}
+
+.background {
+    position: absolute;
+}
+
+.bio-container {
+    margin-top: 20%;
+    width: 100%;
+}
+
+.bio {
+    background-color: #2f3136;
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: #b9bbbe;
+    font-style: italic;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.bio:hover {
+    background-color: #40444b;
+}
+
+.user-info {
+    width: 100%;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    background-color: #2f3136;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.info-item:hover {
+    background-color: #36393f;
+}
+
+.info-item .icon {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #7289da;
+}
+
+.label {
+    font-weight: bold;
+    color: #b9bbbe;
+    margin-right: auto;
+}
+
+.profile__name,
+.email,
+.phone,
+.username {
+    color: #ffffff;
+    cursor: pointer;
+    text-align: right;
+}
+
+.profile__name:hover,
+.email:hover,
+.phone:hover,
+.username:hover {
+    color: #7289da;
+}
+
+.close-button {
+    background-color: #5865f2;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 25px;
+    margin-top: 20px;
+    cursor: pointer;
+    color: #ffffff;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    text-align: center;
+    width: 100%;
+}
+
+.close-button:hover {
+    background-color: #4752c4;
+}
+
+@keyframes modal-appear {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    animation: modal-appear 0.3s ease-out;
+}

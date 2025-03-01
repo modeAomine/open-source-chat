@@ -6,6 +6,7 @@
 
 .search-container :placeholder-shown {
     color: #adb5c5;
+    width: 100%;
 }
 
 .search-container ::placeholder {

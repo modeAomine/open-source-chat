@@ -45,7 +45,6 @@ const FriendsPanelHeader = ({ activeTab, setActiveTab, indicatorStyles, setIndic
                 </button>
             ))}
             <button className='add__new__friend'>Добавить в друзья</button>
-            <div className="active-tab-indicator" style={indicatorStyles}></div>
         </div>
     );
 };

@@ -3,10 +3,13 @@ import './miniProfile.css';
 import mic_icon from '../../../../static/mic.svg';
 import ushi_icon from '../../../../static/ushi.svg';
 import settings_icon from '../../../../static/settings.svg';
+import ProfileModal from '../ProfileModel/ProfileModal';
 
 const MiniProfile = ({ user, onOpenSettings }) => {
     const [isUserInfoVisible, setUserInfoVisible] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isProfileModalVisible, setProfileModalVisible] = useState(false);
+
 
     const toggleUserInfo = () => {
         setUserInfoVisible(!isUserInfoVisible);
@@ -18,6 +21,14 @@ const MiniProfile = ({ user, onOpenSettings }) => {
 
     const hideModal = () => {
         setModalVisible(false);
+    };
+
+    const handleOpenSettings = () => {
+        setProfileModalVisible(true);
+    };
+
+    const handleCloseProfileModal = () => {
+        setProfileModalVisible(false);
     };
 
     if (!user) {
@@ -35,9 +46,9 @@ const MiniProfile = ({ user, onOpenSettings }) => {
                     <span className="user-info__name">{user?.username}</span>
                     <span className="user-info__role">{user?.role ? 'Разработчик' : 'Разработчик'}</span>
 
-                    <span 
-                        className="user-info__bio" 
-                        onMouseEnter={showModal} 
+                    <span
+                        className="user-info__bio"
+                        onMouseEnter={showModal}
                         onMouseLeave={hideModal}
                     >
                         {user?.bio?.slice(0, 10)}{user?.bio?.length > 10 ? '...' : ''}
@@ -60,7 +71,7 @@ const MiniProfile = ({ user, onOpenSettings }) => {
                     src={settings_icon}
                     alt="Settings Icon"
                     className="mini-profile__icon"
-                    onClick={() => onOpenSettings(user)}
+                    onClick={() => handleOpenSettings(user)}
                 />
             </div>
 
@@ -72,6 +83,8 @@ const MiniProfile = ({ user, onOpenSettings }) => {
                     </div>
                 </div>
             )}
+            {isProfileModalVisible && <ProfileModal onClose={handleCloseProfileModal} />}
+
         </div>
     );
 };

@@ -1,0 +1,28 @@
+.phone-input {
+    width: 100%;
+    padding: 8px;
+    background-color: #40444b;
+    border-radius: 5px;
+    border: none;
+    color: #ffffff;
+}
+
+.edit-modal-title input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    background-color: #40444b;
+    border-radius: 5px;
+    border: none;
+    color: #ffffff;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border: 2px solid #7289da;
+}
+
+.Toastify__toast {
+    background-color: #40444b;
+    color: #ffffff;
+    font-size: 14px;
+}
